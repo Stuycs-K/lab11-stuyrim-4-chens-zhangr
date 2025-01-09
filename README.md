@@ -61,8 +61,10 @@ Make a clear list of features that work/dont work
 **Special**: Eye of Terror 
 - Horus releases a wave of warp energy, corrupting the mind of one enemy so that they attack one of their own allies during the next round.
 
-**Support**: 
+**Support**: Dark Corruption 
 - Horus heals for 10 HP and grants himself immunity to all status effects for 1 turn.
+
+**Special Resource**: Warp Corruption (5 for each special)
 
 
 
