@@ -1,7 +1,7 @@
 import java.util.Random;
 public abstract class Adventurer{
   private String name;
-  private int HP,maxHP;
+  private int HP,maxHP, damageEffect;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -56,6 +56,10 @@ public abstract class Adventurer{
     this.HP -= amount;
   }
 
+  public void applyDamageAffect(int n){
+    this.damageEffect = n;
+  }
+
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");
@@ -88,6 +92,11 @@ public abstract class Adventurer{
   public int getmaxHP(){
     return maxHP;
   }
+
+  public int getDamageAffect(){
+    return this.damageEffect;
+  }
+
   public void setmaxHP(int newMax){
     maxHP = newMax;
   }

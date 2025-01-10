@@ -19,11 +19,11 @@ Make a clear list of features that work/dont work
 ## Adventurer Subclasses
 
 ### Ultramarines (30 HP)
-**Normal Attack**: Bolt Barrage (6 dmg)
+**Normal Attack**: Bolt Barrage (5-6 dmg)
 - Ultramarine fires a volley from their boltgun at the enemy
 
 **Special**: Orbital Strike (15 dmg + 5 splash dmg)
-- Ultramarine Calls in a precision orbital bombardment, dealing 15 damage to a single target and 5 splash damage to adjacent enemies.
+- Ultramarine calls in a precision orbital bombardment, dealing 15 damage to a single target and 5 splash damage to adjacent enemies.
 
 **Support**: Logistics Wins Wars
 - Ultramarine uses its superior logistical and management skills to bring extra supplies either to themself or a single ally, providing a boost of +4 dmg for 1 round. 
@@ -31,7 +31,7 @@ Make a clear list of features that work/dont work
 **Special Resource**: Command Points (5 for each special)
 
 ### Adeptus Mechanicus (20 HP)
-**Normal Attack**: Radium Barrage (4 dmg)
+**Normal Attack**: Radium Barrage (3-4 dmg)
 - Adeptus Mechanicus fires a burst of radioactive rounds at their enemy.
 
 **Special**: Omnissiah's Wrath 
@@ -43,7 +43,7 @@ Make a clear list of features that work/dont work
 **Special Resource**: Machine Spirit Energy (3 for each special)
 
 ### Death Korps Guardsman (5 HP)
-**Normal Attack**: Lasgun Shot (2 dmg)
+**Normal Attack**: Lasgun Shot (1-2 dmg)
 - Guardsman fires a single shot from their lasgun due to their inferior physical abilities. 
 
 **Special**: Fragment Grenade - (6 dmg + 2 splash dmg)
@@ -55,7 +55,7 @@ Make a clear list of features that work/dont work
 **Special Resource**: Morale and Grit (4 for each special)
 
 ### BOSS - Horus Lupercal (80 HP)
-**Normal Attack**: Worldbreaker Strike (10 dmg)
+**Normal Attack**: Worldbreaker Strike (9-10 dmg)
 - Horus delivers a hard strike, dealing damage to a single target.
 
 **Special**: Eye of Terror 
