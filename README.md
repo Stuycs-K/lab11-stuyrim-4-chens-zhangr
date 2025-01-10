@@ -42,7 +42,7 @@ Make a clear list of features that work/dont work
 
 **Special Resource**: Machine Spirit Energy (3 for each special)
 
-### Death Korps Guardsman (5 HP)
+### Death Korps Guardsman (12 HP)
 **Normal Attack**: Lasgun Shot (1-2 dmg)
 - Guardsman fires a single shot from their lasgun due to their inferior physical abilities. 
 
@@ -52,7 +52,9 @@ Make a clear list of features that work/dont work
 **Support**: Call Reinforcements
 - Summons another Guardsman upon defeat. Each reinforcement arrives with same health and  same abilities. Maximum of 4 reinforcements per match.
 
-**Special Resource**: Morale and Grit (4 for each special)
+**Special Resource**: Morale and Grit (4 for each special) 
+-make 2 seperate variables then add them, make grit how many times reinforcements have been called nad morale how many turns that particular guardsman has survived (don't make this copy to the reinforcement).
+
 
 ### BOSS - Horus Lupercal (80 HP)
 **Normal Attack**: Worldbreaker Strike (9-10 dmg)
