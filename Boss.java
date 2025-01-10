@@ -37,6 +37,14 @@ public class Boss extends Adventurer {
       public int getSpecialMax(){
         return warpCorruptionMax;
       }
+
+      public boolean getStatusImmunity(){
+        return statusImmunity;
+      }
+
+      public void setStatusImmunity(boolean status){
+        this.statusImmunity = status;
+      }
     
       public String attack(Adventurer other){
         int damage = (int)(Math.random()*3)+ 7 + super.getDamageAffect();

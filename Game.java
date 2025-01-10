@@ -16,12 +16,28 @@ public class Game{
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+    for (int i = 1; i <= 30; i++){
+      Text.go(i, 0);
+      System.out.println("|");
+      Text.go(i, 80);
+      System.out.println("|");
+    }
+    
+    for (int i = 2; i < 80; i++){
+      Text.go(0, i);
+      System.out.println("-");
+      Text.go(30, i);
+      System.out.println("-");
+    }
   }
 
   //Display a line of text starting at
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
+    Text.go(startRow, startCol);
+    System.out.println(s);
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -38,9 +54,27 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
+    Text.go(row, col);
+    int height_counter = 1; 
+    while (text.length() != 0 && height_counter <= height){
+      if (text.length() > width){
+        String temp;
+        temp = text.substring(0, width);
+        System.out.println(temp);
+        text = text.substring(width);
+        System.out.println(text.length());
+        Text.go(row, col + 1);
+        height_counter++;
+      }
+      else{
+        System.out.println(text);
+        text = "";
+      }
+    }
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     //YOUR CODE HERE
     /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
   }
 
 
@@ -146,7 +180,9 @@ public class Game{
 
     //You can add parameters to draw screen!
     drawScreen();//initial state.
+    TextBox(10, 2, 38, 20, "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 
+    
     //Main loop
 
     //display this prompt at the start of the game.
