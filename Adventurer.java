@@ -2,6 +2,7 @@ import java.util.Random;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP, damageEffect;
+  private boolean weaponStatus;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -60,6 +61,10 @@ public abstract class Adventurer{
     this.damageEffect = n;
   }
 
+  public void changeWeaponStatus(boolean status){
+    this.weaponStatus = status;
+  }
+
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");
@@ -73,6 +78,8 @@ public abstract class Adventurer{
     this.name = name;
     this.HP = hp;
     this.maxHP = hp;
+    this.damageEffect = 0;
+    this.weaponStatus = true;
   }
 
   //toString method
@@ -97,12 +104,17 @@ public abstract class Adventurer{
     return this.damageEffect;
   }
 
+  public boolean getWeaponStatus(){
+    return this.weaponStatus;
+  }
+
   public void setmaxHP(int newMax){
     maxHP = newMax;
   }
 
   //Set Methods
   public void setHP(int health){
+    //make sure hp doesn't go over max hp
     this.HP = health;
   }
 

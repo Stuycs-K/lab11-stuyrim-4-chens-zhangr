@@ -23,10 +23,10 @@ Make a clear list of features that work/dont work
 - Ultramarine fires a volley from their boltgun at the enemy
 
 **Special**: Orbital Strike (15 dmg + 5 splash dmg)
-- Ultramarine calls in a precision orbital bombardment, dealing 15 damage to a single target and 5 splash damage to adjacent enemies.
+- Ultramarine calls in a precision orbital bombardment, dealing splash damage of 5 dmg to all enemies and weakening them. Their next attack will deal 4 less damage. 
 
 **Support**: Logistics Wins Wars
-- Ultramarine uses its superior logistical and management skills to bring extra supplies either to themself or a single ally, providing a boost of +4 dmg for 1 round. 
+- Ultramarine uses its superior logistical and management skills to bring extra supplies either to themself or a single ally, providing a boost of +4 hp. 
 
 **Special Resource**: Command Points (5 for each special)
 

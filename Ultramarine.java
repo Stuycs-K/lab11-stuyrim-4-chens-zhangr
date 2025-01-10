@@ -21,7 +21,7 @@ public class Ultramarine extends Adventurer{
     }
 
     public String getSpecialName(){
-        return "Bolt Barrage";
+        return "Logistics Wins War";
       }
     
       public int getSpecial(){
@@ -48,9 +48,8 @@ public class Ultramarine extends Adventurer{
       public String specialAttack(Adventurer other){
         if(getSpecial() == 5){
           setSpecial(0);
-          int damage = (int)(Math.random()*5+Math.random()*5)+3;
-          other.applyDamage(damage);
-          return this + "called in a precision orbital bombardment, dealing 15 damage to " + other + " and 5 splash damage to adjacent enemies";
+          other.applyDamageAffect(-4);
+          return this + "called in a precision orbital bombardment, weakening " + other + ". They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
         }else{
           return "Not enough command points to use Orbital Strike. Instead "+attack(other);
         }
@@ -59,13 +58,13 @@ public class Ultramarine extends Adventurer{
       /*Restores 5 special to other*/
       public String support(Adventurer other){
         //implement way to change damage for only 1 round
-        other.applyDamageAffect(4);
-        return this + "uses his superior logistical skills to bring extra supplies to " + other + ", boosting their damage by 4";
+        other.setHP(other.getHP() + 4);
+        return this + "uses his superior logistical skills to bring extra supplies to " + other + ", boosting their health by 4";
       }
       /*Restores 6 special and 1 hp to self.*/
       public String support(){
-        this.applyDamageAffect(4);
-        return this + "uses his superior logistical skills to bring extra supplies to himself, boosting his damage by 4";
+        this.setHP(this.getHP() + 4);
+        return this + "uses his superior logistical skills to bring extra supplies to himself, boosting his health by 4";
       }
       
 }
