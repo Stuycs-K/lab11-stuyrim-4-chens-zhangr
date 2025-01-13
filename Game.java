@@ -74,12 +74,18 @@ public class Game{
   }
 
 
-
-
 	//return a random adventurer (choose between all available subclasses)
 	//feel free to overload this method to allow specific names/stats.
 	public static Adventurer createRandomAdventurer(){
-  	return new CodeWarrior("Bob"+(int)(Math.random()*100));
+  		Random rand = new Random();
+		int random = rand.nextInt(3) + 1;
+		if (random == 1){
+			return new Guardsman("Colonel Jurten");
+		}
+		else if (random == 2){
+			return new Mechanicus("Paladius");
+		}
+		return new Ultramarine("Titus");
 	}
 
 	/*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -92,10 +98,15 @@ public class Game{
 	* ***THIS ROW INTENTIONALLY LEFT BLANK***
 	*/
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
-
-  	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-  	//YOUR CODE HERE
-  	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+		int increment = WIDTH - 2 / party.size();
+		for(int i = 0; i < party.size(); i ++){
+			Text.go(startRow, i * increment + 2);
+			System.out.print(party.get(i).getName());
+			Text.go(startRow + 1, i * increment + 2);
+			System.out.println("HP: " + party.get(i).getHP());
+			Text.go(startRow + 2, i * increment + 2);
+			System.out.println(party.get(i).getSpecialName() + ": " +  party.get(i).getSpecial());
+		}
 	}
 
 
@@ -116,14 +127,15 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(){
+  public static void drawScreen(ArrayList<Adventurer>party, ArrayList<Adventurer>enemies){
 
 	drawBackground();
 
 	//draw player party
+	drawParty(party, 2);
 
 	//draw enemy party
-
+	drawParty(enemies, 27);
   }
 
   public static String userInput(Scanner in){
@@ -155,6 +167,9 @@ public class Game{
 	//If only 1 enemy is added it should be the boss class.
 	//start with 1 boss and modify the code to allow 2-3 adventurers later.
 	ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
+	enemies.add(createRandomAdventurer());
+	enemies.add(createRandomAdventurer());
+	enemies.add(createRandomAdventurer());
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -162,6 +177,9 @@ public class Game{
 	//Adventurers you control:
 	//Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
 	ArrayList<Adventurer> party = new ArrayList<>();
+	party.add(createRandomAdventurer());
+	party.add(createRandomAdventurer());
+	party.add(createRandomAdventurer());
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -175,10 +193,7 @@ public class Game{
 	//Draw the window border
 
 	//You can add parameters to draw screen!
-	drawScreen();//initial state.
-	TextBox(10, 2, 5, 20, "Hi My name is stephen and I like warhammer");
-	Text.go(33, 0);
-
+	drawScreen(party, enemies);//initial state.
 
 	//Main loop
 
@@ -264,7 +279,7 @@ public class Game{
   	}
 
   	//display the updated screen after input has been processed.
-  	drawScreen();
+  	//drawScreen();
 
 
 	}//end of main game loop
