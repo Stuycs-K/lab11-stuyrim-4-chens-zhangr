@@ -35,6 +35,11 @@ public class Mechanicus extends Adventurer{
         if (spiritBomb<3){
             return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath";
         }
+        spiritBomb--;
+        other.changeWeaponStatus(false);
+        String result = this.getName() " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn";
+        String result += "\n If" + other.getName() +" tried to attack they will take three damage";
+        return result;
     }
 // ### Adeptus Mechanicus (20 HP)
 // **Normal Attack**: Radium Barrage (3-4 dmg)
