@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Mechanicus extends Adventurer{
 
     private int spiritBomb;
@@ -37,10 +39,11 @@ public class Mechanicus extends Adventurer{
         }
         spiritBomb--;
         other.changeWeaponStatus(false);
-        String result = this.getName() " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn";
-        String result += "\n If" + other.getName() +" tried to attack they will take three damage";
+        String result = this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn";
+        result += "\n If" + other.getName() + " tried to attack they will take three damage";
         return result;
     }
+
 // ### Adeptus Mechanicus (20 HP)
 // **Normal Attack**: Radium Barrage (3-4 dmg)
 // - Adeptus Mechanicus fires a burst of radioactive rounds at their enemy.
