@@ -16,20 +16,19 @@ public class Game{
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    for (int i = 0; i <= 30; i++) {
+        Text.go(i, 0); 
+        System.out.println("|");
+        Text.go(i, 80); 
+        System.out.println("|");
+    }
 
-	for (int i = 1; i <= 30; i++){
-  	Text.go(i, 0);
-  	System.out.println("|");
-  	Text.go(i, 80);
-  	System.out.println("|");
-	}
-
-	for (int i = 2; i < 80; i++){
-  	Text.go(0, i);
-  	System.out.println("-");
-  	Text.go(30, i);
-  	System.out.println("-");
-	}
+    for (int i = 0; i <= 80; i++) {
+        Text.go(0, i); 
+        System.out.println("-");
+        Text.go(30, i); 
+        System.out.println("-");
+    }
   }
 
   //Display a line of text starting at
@@ -54,27 +53,24 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-	Text.go(row, col);
-	int height_counter = 1;
-	while (text.length() != 0 && height_counter <= height){
-  	if (text.length() > width){
-    	String temp;
-    	temp = text.substring(0, width);
-    	System.out.print(temp);
-    	text = text.substring(width);
-    	System.out.print(text);
-    	Text.go(row + 1, col + 1);
-    	height_counter++;
-  	}
- 	else{
-   	System.out.println(text);
-   	text = "";
- 	}
-   }
-	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-	//YOUR CODE HERE
-	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    int currentRow = row;
+    int height_counter  = 0;
 
+    while (text != "" && height_counter <= height) {
+        String line;
+        if (text.length() > width) {
+            line = text.substring(0, width);
+            text = text.substring(width);
+        } else {
+            line = text;
+            text = "";
+        }
+        Text.go(currentRow, col);
+        System.out.print(line);
+
+        currentRow++;
+        height_counter++;
+    }
   }
 
 
