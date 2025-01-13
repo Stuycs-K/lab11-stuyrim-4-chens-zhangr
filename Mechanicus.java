@@ -1,7 +1,7 @@
 public class Mechanicus extends Adventurer{
 
     private int spiritBomb;
-    private static final int spiritBombMax = 3;
+    private static final int spiritBombMax = 7;
 
     public Mechanicus(String name){
         super(name,20);
@@ -15,9 +15,26 @@ public class Mechanicus extends Adventurer{
     public int getSpecialMax(){
         return spiritBombMax;
     }
+    
+    public int getSpecial(){
+        return spiritBomb;
+    }
 
     public void setSpecial(int n){
         this.spiritBomb= Math.min(n,spiritBombMax);
+    }
+
+    public String attack(Adventurer other){
+        Random rand = new Random();
+        int damage = rand.nextInt(2)+3;
+        other.applyDamage(damage);
+        return this.getName() + "attacks " + other.getName() + "with Radium Barrage for " + damage;
+    }
+
+    public String specialAttack(Adventurer other){
+        if (spiritBomb<3){
+            return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath";
+        }
     }
 // ### Adeptus Mechanicus (20 HP)
 // **Normal Attack**: Radium Barrage (3-4 dmg)
