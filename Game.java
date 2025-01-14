@@ -122,8 +122,6 @@ public class Game{
 
 
 
-
-
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
@@ -167,9 +165,17 @@ public class Game{
 	//If only 1 enemy is added it should be the boss class.
 	//start with 1 boss and modify the code to allow 2-3 adventurers later.
 	ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
-	enemies.add(createRandomAdventurer());
-	enemies.add(createRandomAdventurer());
-	enemies.add(createRandomAdventurer());
+	Random rand = new Random();
+	int numEnemies = rand.nextInt(3) + 1;
+	if (numEnemies == 1){
+		enemies.add(new Boss());
+	}
+	else{
+		for (int i = 0; i < 3; i ++){
+			enemies.add(createRandomAdventurer());
+		}
+	}
+	
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -177,9 +183,9 @@ public class Game{
 	//Adventurers you control:
 	//Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
 	ArrayList<Adventurer> party = new ArrayList<>();
-	party.add(createRandomAdventurer());
-	party.add(createRandomAdventurer());
-	party.add(createRandomAdventurer());
+	for (int i = 0; i < 3; i ++){
+		party.add(createRandomAdventurer());
+	}
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -243,6 +249,7 @@ public class Game{
     	}else{
       	//This is after the player's turn, and allows the user to see the enemy turn
       	//Decide where to draw the following prompt:
+
       	String prompt = "press enter to see monster's turn";
 
       	partyTurn = false;
