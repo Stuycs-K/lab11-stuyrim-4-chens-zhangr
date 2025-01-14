@@ -23,7 +23,7 @@ public class Boss extends Adventurer {
     }
 
     public String getSpecialName(){
-        return "Eye of Terror";
+        return "Chaos Points";
       }
     
       public int getSpecial(){

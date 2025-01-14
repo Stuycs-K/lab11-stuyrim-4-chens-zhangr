@@ -21,7 +21,7 @@ public class Ultramarine extends Adventurer{
     }
 
     public String getSpecialName(){
-        return "Logistics Wins War";
+        return "Command Points";
       }
     
       public int getSpecial(){

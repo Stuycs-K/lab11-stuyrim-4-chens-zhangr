@@ -98,7 +98,7 @@ public class Game{
 	* ***THIS ROW INTENTIONALLY LEFT BLANK***
 	*/
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
-		int increment = WIDTH - 2 / party.size();
+		int increment = (WIDTH - 2) / party.size();
 		for(int i = 0; i < party.size(); i ++){
 			Text.go(startRow, i * increment + 2);
 			System.out.print(party.get(i).getName());
@@ -200,6 +200,7 @@ public class Game{
 
 	//You can add parameters to draw screen!
 	drawScreen(party, enemies);//initial state.
+	Text.go(33, 0);
 
 	//Main loop
 
@@ -244,12 +245,11 @@ public class Game{
       	//This is a player turn.
       	//Decide where to draw the following prompt:
       	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-
+		
 
     	}else{
       	//This is after the player's turn, and allows the user to see the enemy turn
       	//Decide where to draw the following prompt:
-
       	String prompt = "press enter to see monster's turn";
 
       	partyTurn = false;
