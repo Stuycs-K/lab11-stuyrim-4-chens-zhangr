@@ -16,16 +16,20 @@ public class Game{
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    for (int i = 0; i <= 30; i++) {
+    for (int i = 1; i <= 30; i++) {
         Text.go(i, 0); 
         System.out.println("|");
         Text.go(i, 80); 
         System.out.println("|");
     }
 
-    for (int i = 0; i <= 80; i++) {
-        Text.go(0, i); 
+    for (int i = 1; i <= 80; i++) {
+        Text.go(1, i); 
         System.out.println("-");
+		Text.go(5, i);
+		System.out.println("-");
+		Text.go(26, i);
+		System.out.println("-");
         Text.go(30, i); 
         System.out.println("-");
     }
@@ -200,7 +204,6 @@ public class Game{
 
 	//You can add parameters to draw screen!
 	drawScreen(party, enemies);//initial state.
-	Text.go(33, 0);
 
 	//Main loop
 
