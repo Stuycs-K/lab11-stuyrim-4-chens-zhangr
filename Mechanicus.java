@@ -1,5 +1,4 @@
-import java.util.*;
-
+import java.util.Random;
 public class Mechanicus extends Adventurer{
 
     private int spiritBomb;
@@ -40,10 +39,24 @@ public class Mechanicus extends Adventurer{
         spiritBomb--;
         other.changeWeaponStatus(false);
         String result = this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn";
-        result += "\n If" + other.getName() + " tried to attack they will take three damage";
         return result;
     }
 
+    public String support(Adventurer other){
+        if (other.getDamageAffect() >0){
+            return this.getName()+" cannot update " +other.getName() + "'s weapon any further";
+        }
+        other.applyDamageAffect(3);
+        return this.getName() + " upgrades " + other.getName()+ "'s weapon by +3";
+    }
+
+    public String support(){
+        return this.getName() + " uses self-maintenence boosting their morale, no special effect is applied";
+    }
+
+    public String toString(){
+        return "Adeptus Mechanicus (" + getHP() + "/" +getmaxHP() + "HP," + spiritBomb  + "/" + spiritBombMax + "Machine Spirit Energy";
+    }
 // ### Adeptus Mechanicus (20 HP)
 // **Normal Attack**: Radium Barrage (3-4 dmg)
 // - Adeptus Mechanicus fires a burst of radioactive rounds at their enemy.
