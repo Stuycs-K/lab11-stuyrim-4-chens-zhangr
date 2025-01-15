@@ -221,30 +221,30 @@ public class Game{
 	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
 	
 	while(!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
-	//You can add parameters to draw screen!
-	drawScreen(party, enemies);//initial state.
-
-	//Main loop
-
-	//display this prompt at the start of the game.
-	drawText(prompt,HEIGHT-1,2);
-	Text.go(HEIGHT-1,2+prompt.length());
-  	//Read user input
-  	input = userInput(in);
-	if(input.trim().isEmpty()){
-		continue;
-	}
+		//You can add parameters to draw screen!
+		drawScreen(party, enemies);//initial state.
+	
+		//Main loop
+	
+		//display this prompt at the start of the game.
+		drawText(prompt,HEIGHT-1,2);
+		Text.go(HEIGHT-1,2+prompt.length());
+		  //Read user input
+		  input = userInput(in);
+		if(input.trim().isEmpty()){
+			continue;
+		}
 
   	//example debug statment
   	// TextBox(24,2,WIDTH-4,1,"Input: "+input+" partyTurn:"+partyTurn);
 
   	//display event based on last turn's input
   	if(partyTurn){
-		if(whichPlayer>=party.size()){
-			boolean playerTurn = false;
-			whichOpponent =0;
-			prompt = "Press enter to see monster's turn: ";
-			continue;
+		if(whichPlayer == party.size() - 1){
+			//This is after the player's turn, and allows the user to see the enemy turn
+			//Decide where to draw the following prompt:
+			  boolean playerTurn = false;
+			  prompt = "Press enter to see monster's turn: ";
 		}
 		Adventurer player = party.get(whichPlayer);
     	//Process user input for the last Adventurer:
@@ -274,19 +274,13 @@ public class Game{
 			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
+		whichPlayer++;
 
     	//You should decide when you want to re-ask for user input
     	//If no errors:
-    	whichPlayer++;
-
       	//This is a player turn.
       	//Decide where to draw the following prompt:
 
-    	if(whichPlayer >= party.size()){
-      	//This is after the player's turn, and allows the user to see the enemy turn
-      	//Decide where to draw the following prompt:
-			prompt = "Enter command for " + party.get(whichPlayer) + ": attack/special/quit";
-    	}
     	//done with one party member
   	}else{
     	//not the party turn!
@@ -315,10 +309,10 @@ public class Game{
 		Adventurer enemy =enemies.get(whichOpponent);
 		Adventurer target = party.get(rand.nextInt(party.size()));
 		TextBox(6,2,WIDTH-4,1,enemy.attack(target));
+
+		whichOpponent++;
 	}
   	//display the updated screen after input has been processed.
-
-	whichOpponent++;
 
 	}//end of main game loop
 
