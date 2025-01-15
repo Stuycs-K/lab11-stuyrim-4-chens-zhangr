@@ -9,7 +9,7 @@ public class Ultramarine extends Adventurer{
     }
 
     public Ultramarine(String name, int hp){
-        this(name,hp, 0, 5);
+        this(name,hp, 0, 1);
     }
     
     public Ultramarine(String name){
@@ -49,7 +49,7 @@ public class Ultramarine extends Adventurer{
         if(getSpecial() == 5){
           setSpecial(0);
           other.applyDamageAffect(-4);
-          return this + "called in a precision orbital bombardment, weakening " + other + ". They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
+          return this + " called in a precision orbital bombardment, weakening " + other + ". They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
         }else{
           return "Not enough command points to use Orbital Strike. Instead "+attack(other);
         }
@@ -59,12 +59,12 @@ public class Ultramarine extends Adventurer{
       public String support(Adventurer other){
         //implement way to change damage for only 1 round
         other.setHP(other.getHP() + 4);
-        return this + "uses his superior logistical skills to bring extra supplies to " + other + ", boosting their health by 4";
+        return this + " uses his superior logistical skills to bring extra supplies to " + other + ", boosting their health by 4";
       }
       /*Restores 6 special and 1 hp to self.*/
       public String support(){
         this.setHP(this.getHP() + 4);
-        return this + "uses his superior logistical skills to bring extra supplies to himself, boosting his health by 4";
+        return this + " uses his superior logistical skills to bring extra supplies to himself, boosting his health by 4";
       }
       
 }

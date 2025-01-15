@@ -1,3 +1,4 @@
+
 public class Guardsman extends Adventurer{
     private int grit;
     private int morale;
