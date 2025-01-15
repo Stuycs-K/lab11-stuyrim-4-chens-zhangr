@@ -30,7 +30,7 @@ public class Game{
 		System.out.println("-");
 		Text.go(26, i);
 		System.out.println("-");
-        Text.go(30, i); 
+        Text.go(HEIGHT, i); 
         System.out.println("-");
     }
   }
@@ -58,9 +58,9 @@ public class Game{
   */
   public static void TextBox(int row, int col, int width, int height, String text){
     int currentRow = row;
-    int height_counter  = 0;
+    int heightCounter  = 0;
 
-    while (text != "" && height_counter <= height) {
+    while (!text.isEmpty() && heightCounter <= height) {
         String line;
         if (text.length() > width) {
             line = text.substring(0, width);
@@ -73,7 +73,7 @@ public class Game{
         System.out.print(line);
 
         currentRow++;
-        height_counter++;
+        heightCounter++;
     }
   }
 
@@ -110,6 +110,7 @@ public class Game{
 			System.out.println("HP: " + party.get(i).getHP());
 			Text.go(startRow + 2, i * increment + 2);
 			System.out.println(party.get(i).getSpecialName() + ": " +  party.get(i).getSpecial());
+			System.out.println("");
 		}
 	}
 
@@ -142,24 +143,26 @@ public class Game{
 
   public static String userInput(Scanner in){
   	//Move cursor to prompt location
-
+	Text.go(HEIGHT,1);
+	Text.showCursor();
   	//show cursor
 
   	String input = in.nextLine();
 
   	//clear the text that was written
-
+	Text.hideCursor();
   	return input;
   }
 
   public static void quit(){
 	Text.reset();
 	Text.showCursor();
-	Text.go(32,1);
+	Text.go(HEIGHT+2,1);
   }
 
   public static void run(){
 	//Clear and initialize
+	int turn = 1;
 	Text.hideCursor();
 	Text.clear();
 
@@ -197,7 +200,6 @@ public class Game{
 	boolean partyTurn = true;
 	int whichPlayer = 0;
 	int whichOpponent = 0;
-	int turn = 0;
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
@@ -208,27 +210,32 @@ public class Game{
 	//Main loop
 
 	//display this prompt at the start of the game.
-	String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-
+	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+	drawText(prompt,HEIGHT-2,2);
 	while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
   	//Read user input
   	input = userInput(in);
+	if(input.trim().isEmpty()){
+		continue;
+	}
 
   	//example debug statment
-  	TextBox(24,2,1,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
+  	TextBox(24,2,WIDTH-4,78,"Input: "+input+" partyTurn:"+partyTurn);
 
   	//display event based on last turn's input
   	if(partyTurn){
-
+		Adventurer player = party.get(whichPlayer);
     	//Process user input for the last Adventurer:
-    	if(input.equals("attack") || input.equals("a")){
+    	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+			TextBox(6,2,WIDTH-4,1, player.attack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.equals("special") || input.equals("sp")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+			TextBox(6,2,WIDTH-4,1, player.specialAttack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -236,6 +243,13 @@ public class Game{
       	//assume the value that follows su  is an integer.
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+			String[] parts = input.split(" ");
+			if(parts.length>1){
+				int targetIndex = Integer.parseInt(parts[1]);
+				TextBox(6,2,WIDTH-4,1,player.support(party.get(targetIndex)));
+			}else {
+				TextBox(6,2,WIDTH-4,1,player.support());
+			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
 
@@ -243,20 +257,18 @@ public class Game{
     	//If no errors:
     	whichPlayer++;
 
-
-    	if(whichPlayer < party.size()){
       	//This is a player turn.
       	//Decide where to draw the following prompt:
       	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
 		
 
-    	}else{
+    	 if(whichPlayer >= party.size()){
       	//This is after the player's turn, and allows the user to see the enemy turn
       	//Decide where to draw the following prompt:
-      	String prompt = "press enter to see monster's turn";
-
       	partyTurn = false;
       	whichOpponent = 0;
+		String prompt = "press enter to see monster's turn";
+
     	}
     	//done with one party member
   	}else{
@@ -267,30 +279,29 @@ public class Game{
     	//Enemy action choices go here!
     	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     	//YOUR CODE HERE
+		Adventurer enemy =enemies.get(whichOpponent);
+		Adventurer target = party.get(rand.nextInt(party.size()));
+		TextBox(6,2,WIDTH-4,1,enemy.attack(target));
     	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
     	//Decide where to draw the following prompt:
-    	String prompt = "press enter to see next turn";
-
     	whichOpponent++;
-
-  	}//end of one enemy.
+  	//end of one enemy.
 
   	//modify this if statement.
-  	if(!partyTurn && whichOpponent >= enemies.size()){
+  	if(whichOpponent >= enemies.size()){
     	//THIS BLOCK IS TO END THE ENEMY TURN
     	//It only triggers after the last enemy goes.
     	whichPlayer = 0;
-    	turn++;
     	partyTurn=true;
     	//display this prompt before player's turn
     	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
   	}
-
+	}
   	//display the updated screen after input has been processed.
-  	//drawScreen();
-
+  	drawScreen(party,enemies);
+	drawText(prompt,HEIGHT-2,2);
 
 	}//end of main game loop
 
