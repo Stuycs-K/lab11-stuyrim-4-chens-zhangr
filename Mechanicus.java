@@ -1,3 +1,4 @@
+
 import java.util.Random;
 public class Mechanicus extends Adventurer{
 
@@ -29,7 +30,7 @@ public class Mechanicus extends Adventurer{
         Random rand = new Random();
         int damage = rand.nextInt(2)+3;
         other.applyDamage(damage);
-        return this.getName() + "attacks " + other.getName() + "with Radium Barrage for " + damage;
+        return this.getName() + " attacks " + other.getName() + " with Radium Barrage for " + damage;
     }
 
     public String specialAttack(Adventurer other){
