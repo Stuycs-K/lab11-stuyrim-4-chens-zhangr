@@ -2,8 +2,6 @@ public class Guardsman extends Adventurer{
     private int grit;
     private int morale;
 
-
-
     public Guardsman(String name){
         super(name, 12);
         this.grit=0;
