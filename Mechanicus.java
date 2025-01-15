@@ -54,9 +54,6 @@ public class Mechanicus extends Adventurer{
         return this.getName() + " uses self-maintenence boosting their morale, no special effect is applied";
     }
 
-    public String toString(){
-        return "Adeptus Mechanicus (" + getHP() + "/" +getmaxHP() + "HP," + spiritBomb  + "/" + spiritBombMax + "Machine Spirit Energy";
-    }
 // ### Adeptus Mechanicus (20 HP)
 // **Normal Attack**: Radium Barrage (3-4 dmg)
 // - Adeptus Mechanicus fires a burst of radioactive rounds at their enemy.
