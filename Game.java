@@ -28,7 +28,7 @@ public class Game{
         System.out.println("-");
 		Text.go(5, i);
 		System.out.println("-");
-		Text.go(26, i);
+		Text.go(25, i);
 		System.out.println("-");
         Text.go(HEIGHT, i); 
         System.out.println("-");
@@ -40,7 +40,7 @@ public class Game{
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
 	Text.go(startRow, startCol);
-	System.out.println(s);
+	System.out.print(s);
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -138,12 +138,11 @@ public class Game{
 	drawParty(party, 2);
 
 	//draw enemy party
-	drawParty(enemies, 27);
+	drawParty(enemies, 26);
   }
 
   public static String userInput(Scanner in){
   	//Move cursor to prompt location
-	Text.go(HEIGHT,1);
 	Text.showCursor();
   	//show cursor
 
@@ -157,7 +156,7 @@ public class Game{
   public static void quit(){
 	Text.reset();
 	Text.showCursor();
-	Text.go(HEIGHT+2,1);
+	Text.go(HEIGHT,1);
   }
 
   public static void run(){
@@ -171,14 +170,14 @@ public class Game{
 	//Make an ArrayList of Adventurers and add 1-3 enemies to it.
 	//If only 1 enemy is added it should be the boss class.
 	//start with 1 boss and modify the code to allow 2-3 adventurers later.
-	ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
+	ArrayList<Adventurer>enemies = new ArrayList<>();
 	Random rand = new Random();
 	int numEnemies = rand.nextInt(3) + 1;
 	if (numEnemies == 1){
 		enemies.add(new Boss());
 	}
 	else{
-		for (int i = 0; i < 3; i ++){
+		for (int i = 0; i < numEnemies; i ++){
 			enemies.add(createRandomAdventurer());
 		}
 	}
@@ -203,16 +202,17 @@ public class Game{
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
-
+	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
+	
+	while(!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
 	//You can add parameters to draw screen!
 	drawScreen(party, enemies);//initial state.
 
 	//Main loop
 
 	//display this prompt at the start of the game.
-	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-	drawText(prompt,HEIGHT-2,2);
-	while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
+	drawText(prompt,HEIGHT-1,2);
+	Text.go(HEIGHT-1,2+prompt.length());
   	//Read user input
   	input = userInput(in);
 	if(input.trim().isEmpty()){
@@ -220,10 +220,16 @@ public class Game{
 	}
 
   	//example debug statment
-  	TextBox(24,2,WIDTH-4,78,"Input: "+input+" partyTurn:"+partyTurn);
+  	// TextBox(24,2,WIDTH-4,1,"Input: "+input+" partyTurn:"+partyTurn);
 
   	//display event based on last turn's input
   	if(partyTurn){
+		if(whichPlayer>=party.size()){
+			boolean playerTurn = false;
+			whichOpponent =0;
+			prompt = "Press enter to see monster's turn: ";
+			continue;
+		}
 		Adventurer player = party.get(whichPlayer);
     	//Process user input for the last Adventurer:
     	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
@@ -259,16 +265,11 @@ public class Game{
 
       	//This is a player turn.
       	//Decide where to draw the following prompt:
-      	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-		
 
-    	 if(whichPlayer >= party.size()){
+    	if(whichPlayer >= party.size()){
       	//This is after the player's turn, and allows the user to see the enemy turn
       	//Decide where to draw the following prompt:
-      	partyTurn = false;
-      	whichOpponent = 0;
-		String prompt = "press enter to see monster's turn";
-
+			prompt = "Enter command for " + party.get(whichPlayer) + ": attack/special/quit";
     	}
     	//done with one party member
   	}else{
@@ -279,14 +280,10 @@ public class Game{
     	//Enemy action choices go here!
     	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
     	//YOUR CODE HERE
-		Adventurer enemy =enemies.get(whichOpponent);
-		Adventurer target = party.get(rand.nextInt(party.size()));
-		TextBox(6,2,WIDTH-4,1,enemy.attack(target));
     	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
 
     	//Decide where to draw the following prompt:
-    	whichOpponent++;
   	//end of one enemy.
 
   	//modify this if statement.
@@ -296,12 +293,16 @@ public class Game{
     	whichPlayer = 0;
     	partyTurn=true;
     	//display this prompt before player's turn
-    	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    	prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+		continue;
   	}
+		Adventurer enemy =enemies.get(whichOpponent);
+		Adventurer target = party.get(rand.nextInt(party.size()));
+		TextBox(6,2,WIDTH-4,1,enemy.attack(target));
 	}
   	//display the updated screen after input has been processed.
-  	drawScreen(party,enemies);
-	drawText(prompt,HEIGHT-2,2);
+
+	whichOpponent++;
 
 	}//end of main game loop
 
