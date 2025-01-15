@@ -18,21 +18,37 @@ public class Game{
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     for (int i = 1; i <= 30; i++) {
         Text.go(i, 0); 
-        System.out.println("|");
+        System.out.println("│");
         Text.go(i, 80); 
-        System.out.println("|");
+        System.out.println("│");
     }
 
     for (int i = 1; i <= 80; i++) {
         Text.go(1, i); 
-        System.out.println("-");
+        System.out.println("─");
 		Text.go(5, i);
-		System.out.println("-");
+		System.out.println("─");
 		Text.go(25, i);
-		System.out.println("-");
+		System.out.println("─");
         Text.go(HEIGHT, i); 
-        System.out.println("-");
+        System.out.println("─");
     }
+	Text.go(1,1);
+	System.out.println("┌");
+	Text.go(1,80);
+	System.out.println("┐");
+	Text.go(5,1);
+	System.out.println("├");
+	Text.go(5,80);
+	System.out.println("┤");
+	Text.go(25,1);
+	System.out.println("├");
+	Text.go(25,80);
+	System.out.println("┤");
+	Text.go(30,1);
+	System.out.println("└");
+	Text.go(30,80);
+	System.out.println("┘");
   }
 
   //Display a line of text starting at
