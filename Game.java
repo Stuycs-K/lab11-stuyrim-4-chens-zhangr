@@ -187,9 +187,11 @@ public class Game{
 	//If only 1 enemy is added it should be the boss class.
 	//start with 1 boss and modify the code to allow 2-3 adventurers later.
 	ArrayList<Adventurer>enemies = new ArrayList<>();
+	boolean isBoss = false;
 	Random rand = new Random();
 	int numEnemies = rand.nextInt(3) + 1;
 	if (numEnemies == 1){
+		isBoss = true;
 		enemies.add(new Boss());
 	}
 	else{
@@ -284,7 +286,30 @@ public class Game{
     	//done with one party member
   	}else{
     	//not the party turn!
+		int numMoves;
+		if (isBoss) numMoves = 3;
+		else numMoves = 4;
+		
+		for(int i = 0; i < enemies.size(); i++){
+			Adventurer currentEnemy = enemies.get(i);
 
+			int move = rand.nextInt(numMoves);
+			if (move == 0){
+				int randomPerson = rand.nextInt(party.size());
+				currentEnemy.attack(party.get(randomPerson));
+			}
+			else if (move == 1){
+				int randomPerson = rand.nextInt(party.size());
+				currentEnemy.specialAttack(party.get(randomPerson));
+			}
+			else if (move == 2){
+				currentEnemy.support();
+			}
+			else if (move == 3){
+				int randomPerson = rand.nextInt(enemies.size());
+				currentEnemy.support(enemies.get(randomPerson));
+			}
+		}
 
     	//enemy attacks a randomly chosen person with a randomly chosen attack.z`
     	//Enemy action choices go here!
