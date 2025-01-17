@@ -296,18 +296,22 @@ public class Game{
 			int move = rand.nextInt(numMoves);
 			if (move == 0){
 				int randomPerson = rand.nextInt(party.size());
-				currentEnemy.attack(party.get(randomPerson));
+				TextBox(6,2,WIDTH-4,1,currentEnemy.attack(party.get(randomPerson)));
+
 			}
 			else if (move == 1){
 				int randomPerson = rand.nextInt(party.size());
 				currentEnemy.specialAttack(party.get(randomPerson));
+				TextBox(6,2,WIDTH-4,1,currentEnemy.specialAttack(party.get(randomPerson)));
 			}
 			else if (move == 2){
 				currentEnemy.support();
+				TextBox(6,2,WIDTH-4,1,currentEnemy.support());
 			}
 			else if (move == 3){
 				int randomPerson = rand.nextInt(enemies.size());
 				currentEnemy.support(enemies.get(randomPerson));
+				TextBox(6,2,WIDTH-4,1,currentEnemy.support(enemies.get(randomPerson)));
 			}
 		}
 
