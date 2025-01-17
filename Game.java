@@ -177,7 +177,6 @@ public class Game{
 
   public static void run(){
 	//Clear and initialize
-	int turn = 1;
 	Text.hideCursor();
 	Text.clear();
 
@@ -217,22 +216,26 @@ public class Game{
 	boolean partyTurn = true;
 	int whichPlayer = 0;
 	int whichOpponent = 0;
+	int turn = 0;
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
-	String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
+	String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
+
+	drawScreen(party, enemies);//initial state.
+	drawText(preprompt,HEIGHT-1,2);
+
+
 	
 	while(!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
 		//You can add parameters to draw screen!
-		drawScreen(party, enemies);//initial state.
 	
 		//Main loop
 	
 		//display this prompt at the start of the game.
-		drawText(prompt,HEIGHT-1,2);
-		Text.go(HEIGHT-1,2+prompt.length());
+		Text.go(HEIGHT-1,2+preprompt.length());
 		  //Read user input
-		  input = userInput(in);
+		input = userInput(in);
 		
 
   	//example debug statment
@@ -240,12 +243,7 @@ public class Game{
 
   	//display event based on last turn's input
   	if(partyTurn){
-		if(whichPlayer == party.size() - 1){
-			//This is after the player's turn, and allows the user to see the enemy turn
-			//Decide where to draw the following prompt:
-			  partyTurn = false;
-			  prompt = "Press enter to see monster's turn: ";
-		}
+		
 		Adventurer player = party.get(whichPlayer);
     	//Process user input for the last Adventurer:
     	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
@@ -275,6 +273,30 @@ public class Game{
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
 		whichPlayer++;
+
+		if(whichPlayer < party.size()){
+			//This is a player turn.
+			//Decide where to draw the following prompt:
+			for(int i = 2; i < WIDTH - 1; i++){
+				Text.go(HEIGHT - 1, i);
+				System.out.print(" ");
+			}
+			Text.go(HEIGHT - 1, 2);
+			String prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit)";
+			drawText(prompt,HEIGHT-1,2);
+		  }else{
+			//This is after the player's turn, and allows the user to see the enemy turn
+			//Decide where to draw the following prompt:
+			for(int i = 2; i < WIDTH - 1; i++){
+				Text.go(HEIGHT - 1, i);
+				System.out.print(" ");
+			}
+			String prompt = "press enter to see monster's turn";
+			Text.go(HEIGHT - 1, 2);
+			drawText(prompt,HEIGHT-1,2);
+			partyTurn = false;
+			whichOpponent = 0;
+		}
 
     	//You should decide when you want to re-ask for user input
     	//If no errors:
@@ -313,6 +335,10 @@ public class Game{
 			}
 		}
 
+		String prompt = "press enter to see next turn";
+
+		whichOpponent++;
+
     	//enemy attacks a randomly chosen person with a randomly chosen attack.z`
     	//Enemy action choices go here!
     	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -324,22 +350,20 @@ public class Game{
   	//end of one enemy.
 
   	//modify this if statement.
-  	if(whichOpponent >= enemies.size()){
-    	//THIS BLOCK IS TO END THE ENEMY TURN
-    	//It only triggers after the last enemy goes.
-    	whichPlayer = 0;
-    	partyTurn=true;
-    	//display this prompt before player's turn
-    	prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
-		continue;
-  	}
-		Adventurer enemy =enemies.get(whichOpponent);
-		Adventurer target = party.get(rand.nextInt(party.size()));
-		TextBox(6,2,WIDTH-4,1,enemy.attack(target));
-
-		whichOpponent++;
 	}
-  	//display the updated screen after input has been processed.
+	 //modify this if statement.
+	 if(!partyTurn && whichOpponent >= enemies.size()){
+        //THIS BLOCK IS TO END THE ENEMY TURN
+        //It only triggers after the last enemy goes.
+		whichOpponent = 0;
+        whichPlayer = 0;
+        turn++;
+        partyTurn=true;
+        //display this prompt before player's turn
+        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+      }
+
+      //display the updated screen after input has been processed.
 
 	}//end of main game loop
 
