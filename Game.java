@@ -233,9 +233,7 @@ public class Game{
 		Text.go(HEIGHT-1,2+prompt.length());
 		  //Read user input
 		  input = userInput(in);
-		if(input.trim().isEmpty()){
-			continue;
-		}
+		
 
   	//example debug statment
   	// TextBox(24,2,WIDTH-4,1,"Input: "+input+" partyTurn:"+partyTurn);
@@ -245,7 +243,7 @@ public class Game{
 		if(whichPlayer == party.size() - 1){
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
-			  boolean playerTurn = false;
+			  partyTurn = false;
 			  prompt = "Press enter to see monster's turn: ";
 		}
 		Adventurer player = party.get(whichPlayer);
