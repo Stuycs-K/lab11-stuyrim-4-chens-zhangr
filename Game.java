@@ -255,7 +255,8 @@ public class Game{
       	//YOUR CODE HERE
 		  	Text.clearLine(6);
 			Text.clearLine(7);
-			TextBox(6,2,WIDTH-4,1, player.attack(enemies.get(whichOpponent)));
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2, player.attack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.equals("special") || input.equals("sp")){
@@ -263,7 +264,9 @@ public class Game{
       	//YOUR CODE HERE
 		  Text.clearLine(6);
 		  Text.clearLine(7);
-			TextBox(6,2,WIDTH-4,1, player.specialAttack(enemies.get(whichOpponent)));
+		  Text.clearLine(8);
+
+			TextBox(6,2,WIDTH-4,2, player.specialAttack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -273,12 +276,14 @@ public class Game{
       	//YOUR CODE HERE
 		  Text.clearLine(6);
 		  Text.clearLine(7);
+		  Text.clearLine(8);
+
 			String[] parts = input.split(" ");
 			if(parts.length>1){
 				int targetIndex = Integer.parseInt(parts[1]);
-				TextBox(6,2,WIDTH-4,1,player.support(party.get(targetIndex)));
+				TextBox(6,2,WIDTH-4,2,player.support(party.get(targetIndex)));
 			}else {
-				TextBox(6,2,WIDTH-4,1,player.support());
+				TextBox(6,2,WIDTH-4,2,player.support());
 			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
@@ -321,30 +326,34 @@ public class Game{
 			int move = rand.nextInt(numMoves);
 			if (move == 0){
 				Text.clearLine(6);
-			Text.clearLine(7);
+				Text.clearLine(7);
+				Text.clearLine(8);
 				int randomPerson = rand.nextInt(party.size());
-				TextBox(6,2,WIDTH-4,1,currentEnemy.attack(party.get(randomPerson)));
+				TextBox(6,2,WIDTH-4,2,currentEnemy.attack(party.get(randomPerson)));
 
 			}
 			else if (move == 1){
 				Text.clearLine(6);
-			Text.clearLine(7);
+				Text.clearLine(7);
+				Text.clearLine(8);
 				int randomPerson = rand.nextInt(party.size());
 				currentEnemy.specialAttack(party.get(randomPerson));
-				TextBox(6,2,WIDTH-4,1,currentEnemy.specialAttack(party.get(randomPerson)));
+				TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
 			}
 			else if (move == 2){
 				Text.clearLine(6);
-			Text.clearLine(7);
+				Text.clearLine(7);
+				Text.clearLine(8);
 				currentEnemy.support();
-				TextBox(6,2,WIDTH-4,1,currentEnemy.support());
+				TextBox(6,2,WIDTH-4,2,currentEnemy.support());
 			}
 			else if (move == 3){
 				Text.clearLine(6);
-			Text.clearLine(7);
+				Text.clearLine(7);
+				Text.clearLine(8);
 				int randomPerson = rand.nextInt(enemies.size());
 				currentEnemy.support(enemies.get(randomPerson));
-				TextBox(6,2,WIDTH-4,1,currentEnemy.support(enemies.get(randomPerson)));
+				TextBox(6,2,WIDTH-4,2,currentEnemy.support(enemies.get(randomPerson)));
 			}
 
 		
