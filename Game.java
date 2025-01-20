@@ -172,7 +172,7 @@ public class Game{
   public static void quit(){
 	Text.reset();
 	Text.showCursor();
-	Text.go(HEIGHT,1);
+	Text.go(HEIGHT + 1,1);
   }
 
   public static void run(){
@@ -222,6 +222,7 @@ public class Game{
 	//Draw the window border
 	String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
 
+	String prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
 	drawScreen(party, enemies);//initial state.
 	drawText(preprompt,HEIGHT-1,2);
 
@@ -229,22 +230,22 @@ public class Game{
 	
 	while(!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
 		//You can add parameters to draw screen!
-	
+		drawScreen(party, enemies); 
 		//Main loop
 	
-		//display this prompt at the start of the game.
-		Text.go(HEIGHT-1,2+preprompt.length());
-		  //Read user input
-		input = userInput(in);
-		
+		//Read user input		
 
   	//example debug statment
   	// TextBox(24,2,WIDTH-4,1,"Input: "+input+" partyTurn:"+partyTurn);
 
   	//display event based on last turn's input
   	if(partyTurn){
-		
+
 		Adventurer player = party.get(whichPlayer);
+		drawText(prompt,HEIGHT-1,2);
+		
+		input = userInput(in);
+
     	//Process user input for the last Adventurer:
     	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
@@ -274,24 +275,16 @@ public class Game{
     	}
 		whichPlayer++;
 
-		if(whichPlayer < party.size()){
+		if(whichPlayer < party.size()){ 
 			//This is a player turn.
 			//Decide where to draw the following prompt:
-			for(int i = 2; i < WIDTH - 1; i++){
-				Text.go(HEIGHT - 1, i);
-				System.out.print(" ");
-			}
 			Text.go(HEIGHT - 1, 2);
-			String prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit)";
+			prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
 			drawText(prompt,HEIGHT-1,2);
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
-			for(int i = 2; i < WIDTH - 1; i++){
-				Text.go(HEIGHT - 1, i);
-				System.out.print(" ");
-			}
-			String prompt = "press enter to see monster's turn";
+			prompt = "press enter to see monster's turn ";
 			Text.go(HEIGHT - 1, 2);
 			drawText(prompt,HEIGHT-1,2);
 			partyTurn = false;
@@ -305,13 +298,16 @@ public class Game{
 
     	//done with one party member
   	}else{
+
+		drawText(prompt,HEIGHT-1,2);
+		
+		input = userInput(in);
     	//not the party turn!
 		int numMoves;
 		if (isBoss) numMoves = 3;
 		else numMoves = 4;
 		
-		for(int i = 0; i < enemies.size(); i++){
-			Adventurer currentEnemy = enemies.get(i);
+			Adventurer currentEnemy = enemies.get(whichOpponent);
 
 			int move = rand.nextInt(numMoves);
 			if (move == 0){
@@ -333,10 +329,10 @@ public class Game{
 				currentEnemy.support(enemies.get(randomPerson));
 				TextBox(6,2,WIDTH-4,1,currentEnemy.support(enemies.get(randomPerson)));
 			}
-		}
 
-		String prompt = "press enter to see next turn";
+		
 
+		prompt = "press enter to see monster's turn ";
 		whichOpponent++;
 
     	//enemy attacks a randomly chosen person with a randomly chosen attack.z`
@@ -360,7 +356,7 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
-        String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
       }
 
       //display the updated screen after input has been processed.
