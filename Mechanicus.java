@@ -89,11 +89,11 @@ public class Mechanicus extends Adventurer{
             return this + " is corrupted, can't help their teammates";
         }
         if (other.getPermanentDamageAffect() > 0){
-            return this.getName()+" cannot update " +other.getName() + "'s weapon any further";
+            return this.getName()+" cannot update " +other.getSpecialName() + "'s weapon any further";
         }
         else{
             other.applyPermanentDamageAffect(3);
-            return this.getName() + " upgrades " + other.getName()+ "'s weapon by +3";
+            return this.getName() + " upgrades " + other.getSpecialName()+ "'s weapon by +3";
         }
     }
 
