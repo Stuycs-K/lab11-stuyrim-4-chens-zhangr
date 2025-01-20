@@ -220,7 +220,7 @@ public class Game{
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
-	String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit: ";
+	String preprompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit)  ";
 
 	String prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
 	drawScreen(party, enemies);//initial state.
@@ -242,6 +242,7 @@ public class Game{
   	if(partyTurn){
 
 		Adventurer player = party.get(whichPlayer);
+		Text.clearLine();
 		drawText(prompt,HEIGHT-1,2);
 		
 		input = userInput(in);
@@ -284,7 +285,7 @@ public class Game{
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
-			prompt = "press enter to see monster's turn ";
+			prompt = "press enter to see monster's turn: ";
 			Text.go(HEIGHT - 1, 2);
 			drawText(prompt,HEIGHT-1,2);
 			partyTurn = false;
@@ -298,7 +299,7 @@ public class Game{
 
     	//done with one party member
   	}else{
-
+		Text.clearLine();
 		drawText(prompt,HEIGHT-1,2);
 		
 		input = userInput(in);
@@ -332,7 +333,7 @@ public class Game{
 
 		
 
-		prompt = "press enter to see monster's turn ";
+		prompt = "press enter to see monster's turn: ";
 		whichOpponent++;
 
     	//enemy attacks a randomly chosen person with a randomly chosen attack.z`
@@ -356,7 +357,7 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
-        prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+        prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
       }
 
       //display the updated screen after input has been processed.

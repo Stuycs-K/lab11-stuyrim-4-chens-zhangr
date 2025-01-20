@@ -23,6 +23,14 @@ public class Text{
     System.out.print("\u001b[0m");
   }
 
+  public static void clearLine(){
+    for (int i = 2; i < 80; i++) {
+      Text.go(29, i);
+      System.out.print(" ");
+       // Overwrite with spaces to clear
+  }
+  }
+
 
   public static void hideCursor(){
     System.out.print("\u001b[?25l");
