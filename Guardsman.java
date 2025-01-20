@@ -11,7 +11,7 @@ public class Guardsman extends Adventurer{
     }
 
     public Guardsman(String name, int hp){
-        this(name,hp, 6, 0);
+        this(name,hp, 4, 0);
     }
     
     public Guardsman(String name){
@@ -19,7 +19,7 @@ public class Guardsman extends Adventurer{
     }
     
     public Guardsman(){
-        this("Amim Kagori");
+        this("Colonel Jurten");
     }
 
     public int getSpecial(){
@@ -39,7 +39,13 @@ public class Guardsman extends Adventurer{
     
     }    
     public String attack(Adventurer other){
-        if (super.getWeaponStatus()){
+        if (this.getCorrupted()){
+            int damage = (int)(Math.random()*2)+2;
+            this.applyDamage(damage);
+            restoreSpecial(1);
+            return this.getName()+ " fires a plasma rifle at themselves for " + damage + " damage because they were corrupted";
+        }
+        if (this.getWeaponStatus()){
             int damage = (int)(Math.random()*2)+1;
             other.applyDamage(damage);
             restoreSpecial(1);
@@ -52,7 +58,13 @@ public class Guardsman extends Adventurer{
     }
 
     public String specialAttack(Adventurer other){
-        if (super.getWeaponStatus()){
+        if (this.getCorrupted()){
+            int damage = (int)(Math.random()*2)+1;
+            this.applyDamage(damage);
+            restoreSpecial(1);
+            return this.getName()+ "couldn't use their special because they were corrutped. Instead, they fires a plasma rifle at themselves for " + damage + " damage.";
+        }
+        if (this.getWeaponStatus()){
             if (morale >= 4){
                 this.setSpecial(0);
                 int damage = 10;

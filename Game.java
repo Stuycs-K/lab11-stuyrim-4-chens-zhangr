@@ -100,12 +100,12 @@ public class Game{
   		Random rand = new Random();
 		int random = rand.nextInt(3) + 1;
 		if (random == 1){
-			return new Guardsman("Colonel Jurten");
+			return new Guardsman();
 		}
 		else if (random == 2){
-			return new Mechanicus("Paladius");
+			return new Mechanicus();
 		}
-		return new Ultramarine("Titus");
+		return new Ultramarine();
 	}
 
 	/*Display a List of 2-4 adventurers on the rows row through row+3 (4 rows max)
@@ -244,7 +244,7 @@ public class Game{
   	if(partyTurn){
 
 		Adventurer player = party.get(whichPlayer);
-		Text.clearLine();
+		Text.clearLine(29);
 		drawText(prompt,HEIGHT-1,2);
 		
 		input = userInput(in);
@@ -253,12 +253,16 @@ public class Game{
     	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+		  	Text.clearLine(6);
+			Text.clearLine(7);
 			TextBox(6,2,WIDTH-4,1, player.attack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.equals("special") || input.equals("sp")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+		  Text.clearLine(6);
+		  Text.clearLine(7);
 			TextBox(6,2,WIDTH-4,1, player.specialAttack(enemies.get(whichOpponent)));
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
@@ -267,6 +271,8 @@ public class Game{
       	//assume the value that follows su  is an integer.
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+		  Text.clearLine(6);
+		  Text.clearLine(7);
 			String[] parts = input.split(" ");
 			if(parts.length>1){
 				int targetIndex = Integer.parseInt(parts[1]);
@@ -301,7 +307,7 @@ public class Game{
 
     	//done with one party member
   	}else{
-		Text.clearLine();
+		Text.clearLine(29);
 		drawText(prompt,HEIGHT-1,2);
 		
 		input = userInput(in);
@@ -314,20 +320,28 @@ public class Game{
 
 			int move = rand.nextInt(numMoves);
 			if (move == 0){
+				Text.clearLine(6);
+			Text.clearLine(7);
 				int randomPerson = rand.nextInt(party.size());
 				TextBox(6,2,WIDTH-4,1,currentEnemy.attack(party.get(randomPerson)));
 
 			}
 			else if (move == 1){
+				Text.clearLine(6);
+			Text.clearLine(7);
 				int randomPerson = rand.nextInt(party.size());
 				currentEnemy.specialAttack(party.get(randomPerson));
 				TextBox(6,2,WIDTH-4,1,currentEnemy.specialAttack(party.get(randomPerson)));
 			}
 			else if (move == 2){
+				Text.clearLine(6);
+			Text.clearLine(7);
 				currentEnemy.support();
 				TextBox(6,2,WIDTH-4,1,currentEnemy.support());
 			}
 			else if (move == 3){
+				Text.clearLine(6);
+			Text.clearLine(7);
 				int randomPerson = rand.nextInt(enemies.size());
 				currentEnemy.support(enemies.get(randomPerson));
 				TextBox(6,2,WIDTH-4,1,currentEnemy.support(enemies.get(randomPerson)));

@@ -23,9 +23,9 @@ public class Text{
     System.out.print("\u001b[0m");
   }
 
-  public static void clearLine(){
+  public static void clearLine(int row){
     for (int i = 2; i < 80; i++) {
-      Text.go(29, i);
+      Text.go(row, i);
       System.out.print(" ");
        // Overwrite with spaces to clear
   }

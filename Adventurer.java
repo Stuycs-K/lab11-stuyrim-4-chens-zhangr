@@ -2,7 +2,7 @@ import java.util.*;
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP, damageEffect, permanentDamageEffect;
-  private boolean weaponStatus;
+  private boolean weaponStatus, corrupted;
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -89,6 +89,7 @@ public abstract class Adventurer{
     this.damageEffect = 0;
     this.permanentDamageEffect = 0;
     this.weaponStatus = true;
+    this.corrupted = false;
   }
 
   //toString method
@@ -121,7 +122,15 @@ public abstract class Adventurer{
   }
 
   public boolean getWeaponStatus(){
-    return this.weaponStatus;
+    boolean temp = weaponStatus;
+    weaponStatus = true;
+    return temp;
+  }
+
+  public boolean getCorrupted(){
+    boolean temp = corrupted;
+    corrupted = false;
+    return temp;
   }
 
   public void setmaxHP(int newMax){
@@ -136,5 +145,9 @@ public abstract class Adventurer{
 
   public void setName(String s){
     this.name = s;
+  }
+
+  public void setCorrupted(boolean status){
+    this.corrupted = status;
   }
 }

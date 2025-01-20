@@ -1,3 +1,4 @@
+import java.util.*;
 public class Boss extends Adventurer {
     
     private int warpCorruptionMax, warCorruption;
@@ -11,11 +12,11 @@ public class Boss extends Adventurer {
     }
 
     public Boss(String name, int hp){
-        this(name,hp, 0, 5);
+        this(name,hp, 5, 0);
     }
     
     public Boss(String name){
-        this(name,30);
+        this(name,80);
     }
     
     public Boss(){
@@ -47,11 +48,25 @@ public class Boss extends Adventurer {
       }
     
       public String attack(Adventurer other){
-        int damage = (int)(Math.random()*3)+ 7 + super.getDamageAffect();
-        other.applyDamage(damage);
-        restoreSpecial(1);
-        return this + " attacked "+ other + " and dealt "+ damage +
-        " points of damage. They then charged their warp corruption by 1";
+        if (this.getWeaponStatus() && this.getStatusImmunity()){
+          int damage = (int)(Math.random()*3)+ 7;
+          other.applyDamage(damage);
+          restoreSpecial(1);
+          this.setStatusImmunity(false);
+          return this + " attacked "+ other + " and dealt "+ damage +
+          " points of damage. They then charged their warp corruption by 1";
+        }
+        else if (this.getWeaponStatus()){
+          int damage = (int)(Math.random()*3)+ 7 + this.getDamageAffect();
+          other.applyDamage(damage);
+          restoreSpecial(1);
+          return this + " attacked "+ other + " and dealt "+ damage +
+          " points of damage. They then charged their warp corruption by 1";
+        }
+        else{
+          super.changeWeaponStatus(true);
+            return this + "'s weapons has been disabled for 1 round. Couldn't attack.";
+        }
       }
     
     
@@ -65,16 +80,19 @@ public class Boss extends Adventurer {
         }
     
       }
-      /*Restores 6 special and 1 hp to self.*/
+
+      public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
+        return this.specialAttack(other);
+      }
+
       public String support(){
         this.setHP(this.getHP() + 10);
-        //todo: figure out corruption system
+        this.setStatusImmunity(true);
         return this + " heals for 10 HP and grants himself immunity to all status effects for 1 turn.";
       }
 
       public String support(Adventurer other){
         return this.support();
-      };
+      }
 
-      
 }

@@ -52,8 +52,7 @@ Make a clear list of features that work/dont work
 **Support**: Call Reinforcements
 - Summons another Guardsman upon defeat. Each reinforcement arrives with same health and  same abilities. Maximum of 4 reinforcements per match. Guardsmen cannot support other forces. 
 
-**Special Resource**: Morale and Grit (4 for each special) 
--make 2 seperate variables then add them, make grit how many times reinforcements have been called nad morale how many turns that particular guardsman has survived (don't make this copy to the reinforcement).
+**Special Resource**: Morale (4 for each special) 
 
 
 ### BOSS - Horus Lupercal (80 HP)
@@ -61,7 +60,7 @@ Make a clear list of features that work/dont work
 - Horus delivers a hard strike, dealing damage to a single target.
 
 **Special**: Eye of Terror 
-- Horus releases a wave of warp energy, corrupting the mind of one enemy so that they attack one of their own allies during the next round.
+- Horus releases a wave of warp energy, corrupting the mind of one enemy so that they attack themselves during the next round.
 
 **Support**: Dark Corruption 
 - Horus heals for 10 HP and grants himself immunity to all status effects for 1 turn.
