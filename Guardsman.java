@@ -1,70 +1,98 @@
+import java.util.*;
 
 public class Guardsman extends Adventurer{
-    private int grit;
-    private int morale;
+    private int morale, moraleMax, counter;
 
-    public Guardsman(String name){
-        super(name, 12);
-        this.grit=0;
-        this.morale=0;
+    public Guardsman(String name, int hp, int moraleMax, int morale){
+        super(name,hp);
+        this.moraleMax = moraleMax;
+        this.morale = morale;
+        this.counter = 0;
     }
 
-    public String getSpecialName(){
-        return "Morale and Grit";
+    public Guardsman(String name, int hp){
+        this(name,hp, 6, 0);
+    }
+    
+    public Guardsman(String name){
+        this(name,10);
+    }
+    
+    public Guardsman(){
+        this("Amim Kagori");
     }
 
     public int getSpecial(){
-        return morale + grit;
-    }
-
-    public int getMorale(){
         return morale;
     }
 
-    public int getGrit(){
-        return grit;
-    }
-
-    public void setMorale(int morale){
-        this.morale=morale;
-    }
-    
-    public void setGrit(int grit){
-        this.grit=grit;
+    public String getSpecialName(){
+        return "Morale";
     }
 
     public void setSpecial(int n){
-        n= this.morale=this.grit;
+        this.morale = n;
     }
 
     public int getSpecialMax(){
-        return 7;
+        return 6;
     
     }    
     public String attack(Adventurer other){
-        int damage = (int)(Math.random()*2)+1;
-        other.applyDamage(damage);
-        return this.getName()+ " fires a plasma rifle at " +other.getName()+ " for " + damage + " damage.";
+        if (super.getWeaponStatus()){
+            int damage = (int)(Math.random()*2)+1;
+            other.applyDamage(damage);
+            restoreSpecial(1);
+            return this.getName()+ " fires a plasma rifle at " +other.getName()+ " for " + damage + " damage.";
+        }
+        else{
+           super.changeWeaponStatus(true);
+          return this + "'s attacks has been disabled for 1 round.";
+        }
     }
 
     public String specialAttack(Adventurer other){
-        if (morale >= 4){
-            morale = morale - 4;
-            int damage = 10;
-            int splashDamage = 3;
+        if (super.getWeaponStatus()){
+            if (morale >= 4){
+                this.setSpecial(0);
+                int damage = 10;
+                int splashDamage = 3;
 
-            other.applyDamage(damage);
+                other.applyDamage(damage);
 
-            return this.getName() + " tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
-        } else {
-            return this.getName()+ " doesn't have enough morale.";
-        }
+                return this.getName() + " tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
+            } else {
+                return this.getName()+ " doesn't have enough morale.";
+            }
+        }   
+        else{
+            super.changeWeaponStatus(true);
+            return this + "'s weapons has been disabled for 1 round. Couldn't attack.";
+            }
+    }
+
+    public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
+        return this.specialAttack(other);
     }
     
     public String support(){
-        if (getHP() <= 0 && grit < 4){
-            grit++;
-            return this.getName() + " is calling reinforcements! " + grit;
+        if (getHP() <= 0 && counter < 4){
+            counter++;
+            return this.getName() + " is calling reinforcements! ";
+        } else if (getHP()<=0){
+            return this.getName() + " cannot call more reinforcements.";
+        } else {
+            return this.getName() + " is still alive, no need for reinforcements";
+        }
+    }
+
+    public String support(ArrayList<Adventurer> party){
+        if (getHP() <= 0 && counter < 4){
+            counter++;
+            this.moraleMax = 6;
+            this.morale = 0;
+            this.setHP(10);
+            return this.getName() + " is calling reinforcements and has been replaced by a new Guardsman";
         } else if (getHP()<=0){
             return this.getName() + " cannot call more reinforcements.";
         } else {
@@ -73,18 +101,10 @@ public class Guardsman extends Adventurer{
     }
 
     public String support(Adventurer other){
-        return "A guardsman won't support others, they shall die a glorious death";
+        other.restoreSpecial(1);
+        return this + " charged " + other + "'s " + other.getSpecial() + " by 1";
     }
 
-    public void incrementMorale(){
-        morale++;
-    }
-
-    public int restoreSpecial(int n){
-        int restore = Math.min(n,4-morale);
-        morale += restore;
-        return restore;
-    }
 // ### Death Korps Guardsman (12 HP)
 // **Normal Attack**: Lasgun Shot (1-2 dmg)
 // - Guardsman fires a single shot from their lasgun due to their inferior physical abilities. 

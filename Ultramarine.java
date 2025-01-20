@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Ultramarine extends Adventurer{
 
     private int commandPointMax, commandPoint;
@@ -29,7 +31,7 @@ public class Ultramarine extends Adventurer{
       }
     
       public void setSpecial(int n){
-        commandPoint = n;
+        this.commandPoint= Math.min(n,commandPointMax);
       }
     
       public int getSpecialMax(){
@@ -37,24 +39,44 @@ public class Ultramarine extends Adventurer{
       }
     
       public String attack(Adventurer other){
-        int damage = (int)(Math.random()*3)+ 4 + super.getDamageAffect();
-        other.applyDamage(damage);
-        restoreSpecial(1);
-        return this + " attacked "+ other + " and dealt "+ damage +
-        " points of damage. They then charged their command authority by 1";
+        if (super.getWeaponStatus()){
+          int damage = (int)(Math.random()*3)+ 4 + this.getDamageAffect() + this.getPermanentDamageAffect();
+          other.applyDamage(damage);
+          restoreSpecial(1);
+          return this + " attacked "+ other + " and dealt "+ damage +
+          " points of damage. They then charged their command authority by 1";
+        }
+        else{
+          super.changeWeaponStatus(true);
+          return this + "'s attacks has been disabled for 1 round.";
+        }
+        
       }
     
     
       public String specialAttack(Adventurer other){
-        if(getSpecial() == 5){
-          setSpecial(0);
-          other.applyDamageAffect(-4);
-          return this + " called in a precision orbital bombardment, weakening " + other + ". They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
-        }else{
-          return "Not enough command points to use Orbital Strike. Instead "+attack(other);
-        }
-    
+        return " ";
       }
+
+      public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
+        if (super.getWeaponStatus()){
+          if(getSpecial() == 5){
+            setSpecial(0);
+            for(Adventurer enemy: enemies){
+              enemy.applyDamage(5 + this.getDamageAffect() + this.getPermanentDamageAffect());
+              enemy.applyDamageAffect(-3);
+            }
+            return this + " called in a precision orbital bombardment, weakening all enemies. They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
+          }else{
+            return "Not enough command points to use Orbital Strike. Instead "+attack(other);
+          }
+        }
+        else{
+          super.changeWeaponStatus(true);
+          return this + "'s attacks has been disabled for 1 round";
+          }
+        }
+        
       /*Restores 5 special to other*/
       public String support(Adventurer other){
         //implement way to change damage for only 1 round
@@ -67,4 +89,4 @@ public class Ultramarine extends Adventurer{
         return this + " uses his superior logistical skills to bring extra supplies to himself, boosting his health by 4";
       }
       
-}
+    }

@@ -1,13 +1,26 @@
 
-import java.util.Random;
+import java.util.*;
 public class Mechanicus extends Adventurer{
 
     private int spiritBomb;
-    private static final int spiritBombMax = 7;
+    private int machineEnergy, machineEnergyMax;
 
+    public Mechanicus(String name, int hp, int machineEnergyMax, int machineEnergy){
+        super(name,hp);
+        this.machineEnergyMax = machineEnergyMax;
+        this.machineEnergy = machineEnergy;
+    }
+
+    public Mechanicus(String name, int hp){
+        this(name,hp, 5, 0);
+    }
+    
     public Mechanicus(String name){
-        super(name,20);
-        this.spiritBomb= spiritBombMax;
+        this(name,20);
+    }
+    
+    public Mechanicus(){
+        this("Paladius");
     }
 
     public String getSpecialName(){
@@ -15,44 +28,63 @@ public class Mechanicus extends Adventurer{
     }
 
     public int getSpecialMax(){
-        return spiritBombMax;
+        return machineEnergyMax;
     }
     
     public int getSpecial(){
-        return spiritBomb;
+        return machineEnergy;
     }
 
     public void setSpecial(int n){
-        this.spiritBomb= Math.min(n,spiritBombMax);
+        this.machineEnergy = Math.min(n,machineEnergyMax);
     }
 
     public String attack(Adventurer other){
-        Random rand = new Random();
-        int damage = rand.nextInt(2)+3;
-        other.applyDamage(damage);
-        return this.getName() + " attacks " + other.getName() + " with Radium Barrage for " + damage;
+        if (super.getWeaponStatus()){
+            Random rand = new Random();
+            int damage = rand.nextInt(2)+3 + getDamageAffect() + getPermanentDamageAffect();
+            other.applyDamage(damage);
+            this.restoreSpecial(1);
+            return this.getName() + " attacks " + other.getName() + " with Radium Barrage for " + damage + " points. They then charged their machine energy spirit by 1.";
+        }
+        else{
+            super.changeWeaponStatus(true);
+            return this + "'s attacks has been disabled for 1 round.";
+        }
     }
 
     public String specialAttack(Adventurer other){
+        if(super.getWeaponStatus()){
         if (spiritBomb<3){
-            return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath";
+            return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath. Instead "+attack(other);
         }
-        spiritBomb--;
-        other.changeWeaponStatus(false);
-        String result = this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn";
-        return result;
+        else{
+            this.setSpecial(0);
+            other.changeWeaponStatus(false);
+            return this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn.";
+        }
+        }
+        else{
+            super.changeWeaponStatus(true);
+            return this + "'s attacks has been disabled for 1 round";
+        }
+    }
+
+    public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
+        return this.specialAttack(other);
     }
 
     public String support(Adventurer other){
         if (other.getDamageAffect() >0){
             return this.getName()+" cannot update " +other.getName() + "'s weapon any further";
         }
-        other.applyDamageAffect(3);
+        other.applyPermanentDamageAffect(3);
         return this.getName() + " upgrades " + other.getName()+ "'s weapon by +3";
     }
 
     public String support(){
-        return this.getName() + " uses self-maintenence boosting their morale, no special effect is applied";
+        this.applyPermanentDamageAffect(3);
+        return this.getName() + " uses self-maintenence boosting their damage by +3";
     }
 
 // ### Adeptus Mechanicus (20 HP)

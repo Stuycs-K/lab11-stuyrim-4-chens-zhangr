@@ -198,6 +198,7 @@ public class Game{
 			enemies.add(createRandomAdventurer());
 		}
 	}
+
 	
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
@@ -212,6 +213,7 @@ public class Game{
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 	//YOUR CODE HERE
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
 
 	boolean partyTurn = true;
 	int whichPlayer = 0;

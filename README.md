@@ -22,8 +22,8 @@ Make a clear list of features that work/dont work
 **Normal Attack**: Bolt Barrage (5-6 dmg)
 - Ultramarine fires a volley from their boltgun at the enemy
 
-**Special**: Orbital Strike (15 dmg + 5 splash dmg)
-- Ultramarine calls in a precision orbital bombardment, dealing splash damage of 5 dmg to all enemies and weakening them. Their next attack will deal 4 less damage. 
+**Special**: Orbital Strike (-4 dmg next round + 3 splash dmg)
+- Ultramarine calls in a precision orbital bombardment, dealing splash damage of 3 dmg to all enemies and weakening them. Their next attack/special attack will deal 4 less damage (ie, damage effect only gets removed on their next attack)
 
 **Support**: Logistics Wins Wars
 - Ultramarine uses its superior logistical and management skills to bring extra supplies either to themself or a single ally, providing a boost of +4 hp. 
@@ -35,14 +35,14 @@ Make a clear list of features that work/dont work
 - Adeptus Mechanicus fires a burst of radioactive rounds at their enemy.
 
 **Special**: Omnissiah's Wrath 
-- Adeptus Mechanicus calls on the power of the machine god to disable the weapon of one of the opponents for 1 round.  Additionally, deals 3 damage to that opponent if they attempt any action during this time.
+- Adeptus Mechanicus calls on the power of the machine god to disable the weapon of one of the opponents for the next attack/special attack. (ie, effect only gets removed on their next attack. If they support on their next move, then it still be there.)
 
 **Support**: Upgrade Agreement 
 - Adeptus Mechanicals uses its technical skills to upgrade the weapon of either themself or a single ally, providing a boost of +3 dmg for the rest of the game. Can only be used once per person.
 
 **Special Resource**: Machine Spirit Energy (3 for each special)
 
-### Death Korps Guardsman (12 HP)
+### Death Korps Guardsman (10 HP)
 **Normal Attack**: Lasgun Shot (1-2 dmg)
 - Guardsman fires a single shot from their lasgun due to their inferior physical abilities. 
 
@@ -50,7 +50,7 @@ Make a clear list of features that work/dont work
 - Guardsman tosses a grenade, dealing 10 damage to a target and 3 splash damage to adjacent enemies.
 
 **Support**: Call Reinforcements
-- Summons another Guardsman upon defeat. Each reinforcement arrives with same health and  same abilities. Maximum of 4 reinforcements per match.
+- Summons another Guardsman upon defeat. Each reinforcement arrives with same health and  same abilities. Maximum of 4 reinforcements per match. Guardsmen cannot support other forces. 
 
 **Special Resource**: Morale and Grit (4 for each special) 
 -make 2 seperate variables then add them, make grit how many times reinforcements have been called nad morale how many turns that particular guardsman has survived (don't make this copy to the reinforcement).

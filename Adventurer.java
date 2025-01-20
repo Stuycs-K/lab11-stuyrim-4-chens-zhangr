@@ -1,7 +1,7 @@
-import java.util.Random;
+import java.util.*;
 public abstract class Adventurer{
   private String name;
-  private int HP,maxHP, damageEffect;
+  private int HP,maxHP, damageEffect, permanentDamageEffect;
   private boolean weaponStatus;
 
   //Abstract methods are meant to be implemented in child classes.
@@ -34,6 +34,7 @@ public abstract class Adventurer{
   //hurt or hinder the target adventurer
   public abstract String attack(Adventurer other);
 
+
   /*This is an example of an improvement that you can make to allow
    * for more flexible targetting.
    */
@@ -49,6 +50,9 @@ public abstract class Adventurer{
   //hurt or hinder the target adventurer, consume some special resource
   public abstract String specialAttack(Adventurer other);
 
+  public abstract String specialAttack(Adventurer other, ArrayList<Adventurer> enemies);
+
+
   /*
   standard methods
   */
@@ -59,6 +63,10 @@ public abstract class Adventurer{
 
   public void applyDamageAffect(int n){
     this.damageEffect = n;
+  }
+
+  public void applyPermanentDamageAffect(int n){
+    this.permanentDamageEffect = n;
   }
 
   public void changeWeaponStatus(boolean status){
@@ -79,6 +87,7 @@ public abstract class Adventurer{
     this.HP = hp;
     this.maxHP = hp;
     this.damageEffect = 0;
+    this.permanentDamageEffect = 0;
     this.weaponStatus = true;
   }
 
@@ -101,7 +110,14 @@ public abstract class Adventurer{
   }
 
   public int getDamageAffect(){
-    return this.damageEffect;
+    int temp = this.damageEffect;
+    this.damageEffect = 0;
+    return temp;
+    
+  }
+
+  public int getPermanentDamageAffect(){
+    return permanentDamageEffect;
   }
 
   public boolean getWeaponStatus(){
@@ -115,7 +131,7 @@ public abstract class Adventurer{
   //Set Methods
   public void setHP(int health){
     //make sure hp doesn't go over max hp
-    this.HP = health;
+    this.HP = Math.min(health,getmaxHP());
   }
 
   public void setName(String s){
