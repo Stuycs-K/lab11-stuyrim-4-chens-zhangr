@@ -157,6 +157,16 @@ public class Game{
 	drawParty(enemies, 26);
   }
 
+  private static void removeDeadUnits(ArrayList<Adventurer> list){
+	Iterator<Adventurer> iterator = list.iterator();
+	while(iterator.hasNext()){
+		Adventurer unit= iterator.next();
+		if (unit.getHP()<=0){
+			iterator.remove();
+		}
+	}
+  }
+
   public static String userInput(Scanner in){
   	//Move cursor to prompt location
 	Text.showCursor();
@@ -222,9 +232,9 @@ public class Game{
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
-	String preprompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit)  ";
+	String preprompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit) ";
 
-	String prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
+	String prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit) ";
 	drawScreen(party, enemies);//initial state.
 	drawText(preprompt,HEIGHT-1,2);
 
@@ -288,12 +298,12 @@ public class Game{
 			//This is a player turn.
 			//Decide where to draw the following prompt:
 			Text.go(HEIGHT - 1, 2);
-			prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
+			prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit ";
 			drawText(prompt,HEIGHT-1,2);
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
-			prompt = "press enter to see monster's turn: ";
+			prompt = "Press enter to see monster's turn: ";
 			Text.go(HEIGHT - 1, 2);
 			drawText(prompt,HEIGHT-1,2);
 			partyTurn = false;
@@ -373,7 +383,7 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
-        prompt = "Enter command for "+party.get(whichPlayer)+": (attack/special/quit) ";
+        prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit ";
       }
 
       //display the updated screen after input has been processed.
