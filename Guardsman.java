@@ -15,7 +15,7 @@ public class Guardsman extends Adventurer{
     }
     
     public Guardsman(String name){
-        this(name,10);
+        this(name,12);
     }
     
     public Guardsman(){
@@ -70,6 +70,7 @@ public class Guardsman extends Adventurer{
                 int damage = 10;
                 other.applyDamage(damage); //main damage
 
+                int splashDamage = 4;
                 return this.getName() + " tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
             } else {
                 return this.getName()+ " doesn't have enough morale.";

@@ -71,12 +71,12 @@ public class Boss extends Adventurer {
     
     
       public String specialAttack(Adventurer other){
-        if(getSpecial() == 5){
+        if(getSpecial() == 7){
           setSpecial(0);
           //todo: figure out corruption system
-          int damage = 10;
+          int damage = 20;
           other.applyDamage(damage); //once
-          return this + " used Eye of Terror and dealt " + damage + " damage to " other + ".";
+          return this + " used Eye of Terror and dealt " + damage + " damage to "+  other + ".";
         }else{
           return "Not enough corruption points to use Eye of Terror. Instead "+attack(other);
         }

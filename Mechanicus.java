@@ -42,8 +42,8 @@ public class Mechanicus extends Adventurer{
     public String attack(Adventurer other){
         if (this.getCorrupted()){
             Random rand = new Random();
-            int damage = rand.nextInt(2)+3 + getDamageAffect() + getPermanentDamageAffect();
-            this.applyDamage(damage);
+            int damage = (int) (Math.random() * 2) + 3 + getDamageAffect() + getPermanentDamageAffect();
+            this.applyDamage(damage); //self
             return this.getName() + " attacks themselves with Radium Barrage for " + damage + " points because they were corrupted";
         }
         if (this.getWeaponStatus()){
@@ -54,6 +54,7 @@ public class Mechanicus extends Adventurer{
             return this.getName() + " attacks " + other.getName() + " with Radium Barrage for " + damage + " points. They then charged their machine energy spirit by 1.";
         }
         else{
+            super.changeWeaponStatus(true);
             return this + "'s attacks has been disabled for 1 round.";
         }
     }
@@ -66,18 +67,26 @@ public class Mechanicus extends Adventurer{
             return this.getName() + "couldn't use their special because they were corrutped. Instead, they attack themselves with Radium Barrage for " + damage + " points";
         }
         if(this.getWeaponStatus()){
-        if (spiritBomb<3){
-            return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath. Instead "+attack(other);
+            int damage = (int) (Math.random()* 2) +3 + getDamageAffect()+ getPermanentDamageAffect();
+            other.applyDamage(damage);
+            restoreSpecial(1);
+            return this.getName()+ " attacks " +other.getName() + " with Radium Barrage for " +damage+ " points. They have charged their machine energy by 1.";
+        }else {
+            super.changeWeaponStatus(true);
+            return this.getName()+ "'s attacks have been disabled for 1 round.";
         }
-        else{
-            this.setSpecial(0);
-            other.changeWeaponStatus(false);
-            return this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn.";
-        }
-        }
-        else{
-            return this + "'s attacks has been disabled for 1 round";
-        }
+        // if (spiritBomb<3){
+        //     return this.getName() + " doesn't have enough MSE to use Omnissiah's Wrath. Instead "+attack(other);
+        // }
+        // else{
+        //     this.setSpecial(0);
+        //     other.changeWeaponStatus(false);
+        //     return this.getName() + " used Omissiah's Wrath to disable " + other.getName() + "'s weapon for one turn.";
+        // }
+        // }
+        // else{
+        //     return this + "'s attacks has been disabled for 1 round";
+        // }
     }
 
     public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
@@ -86,7 +95,7 @@ public class Mechanicus extends Adventurer{
 
     public String support(Adventurer other){
         if (this.getCorrupted()){
-            return this + " is corrupted, can't help their teammates";
+            return this.getName() + " is corrupted, can't help their teammates";
         }
         if (other.getPermanentDamageAffect() > 0){
             return this.getName()+" cannot update " +other.getSpecialName() + "'s weapon any further";
@@ -99,7 +108,7 @@ public class Mechanicus extends Adventurer{
 
     public String support(){
         if (this.getCorrupted()){
-            return this + " is corrupted, can't help themself";
+            return this.getName() + " is corrupted, can't help themself";
         }
         if (this.getPermanentDamageAffect() > 0){
             return this.getName()+" cannot update their weapon any further";
