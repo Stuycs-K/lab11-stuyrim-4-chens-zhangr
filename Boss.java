@@ -51,7 +51,7 @@ public class Boss extends Adventurer {
         if (this.getWeaponStatus() && this.getStatusImmunity()){
           int damage = (int)(Math.random()*3)+ 7;
           other.applyDamage(damage);
-          restoreSpecial(10);
+          restoreSpecial(1);
           this.setStatusImmunity(false);
           return this + " attacked "+ other + " and dealt "+ damage +
           " points of damage. They then charged their warp corruption by 1";
@@ -59,9 +59,9 @@ public class Boss extends Adventurer {
         else if (this.getWeaponStatus()){
           int damage = (int)(Math.random()*3)+ 7 + this.getDamageAffect();
           other.applyDamage(damage); //once
-          restoreSpecial(10);
+          restoreSpecial(2);
           return this + " attacked "+ other + " and dealt "+ damage +
-          " points of damage. They then charged their warp corruption by 1";
+          " points of damage. They then charged their warp corruption by 2";
         }
         else{
           super.changeWeaponStatus(true);
