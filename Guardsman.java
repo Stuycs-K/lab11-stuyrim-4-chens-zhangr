@@ -71,21 +71,25 @@ public class Guardsman extends Adventurer{
             if(morale >=4){
                 setSpecial(morale-4);
                 int damage = 10;
-                int splashDamage = 3;
 
                 other.applyDamage(damage); //main damage
-                for(Adventurer enemy: enemies){
-                    if(enemy != other){
-                        enemy.applyDamage(splashDamage);
-                    }
-                } 
-                return this.getName() + " also tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
-            } else {
-                return this.getName()+ " doesn't have enough morale.";
-            }
-        }else{
-            super.changeWeaponStatus(true);
-            return this.getName() + "'s weapons has been disabled for 1 round. Couldn't attack.";
+                if(enemies.size()>1){
+                    int splashDamage = 3;
+                    for(Adventurer enemy: enemies){
+                        if(enemy != other){
+                            enemy.applyDamage(splashDamage);
+                        }
+                    } 
+                    return this.getName() + " also tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
+                } else{
+                    return this.getName()+" tosses a grenade, dealing " + damage + " damage to " +other.getName()+".";
+                }
+            }else {
+                    return this.getName()+ " doesn't have enough morale.";
+                }
+            }else{
+                super.changeWeaponStatus(true);
+                return this.getName() + "'s weapons has been disabled for 1 round. Couldn't attack.";
         }
     }
 
