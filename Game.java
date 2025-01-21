@@ -121,7 +121,7 @@ public class Game{
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
 		if(party.size()==0){
 			Text.go(startRow,2);
-			System.out.println("Dead ");
+			System.out.println("Dead                  ");
 			return;
 		}
 
@@ -255,7 +255,7 @@ public class Game{
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
-	String preprompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit) ";
+	String preprompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(sp)ecial/(su)pport/(q)uit ";
 
 	String prompt = preprompt;
 	drawScreen(party, enemies);//initial state.
@@ -321,7 +321,7 @@ public class Game{
     	}
     	else if(input.startsWith("su ") || input.startsWith("support ")){
       	//"support 0" or "su 0" or "su 2" etc.
-      	//assume the value that follows su  is an integer.
+      	//assume the value that follows su is an integer.
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
 		  Text.clearLine(6);
@@ -331,19 +331,36 @@ public class Game{
 			String[] parts = input.split(" ");
 			if(parts.length>1){
 				int targetIndex = Integer.parseInt(parts[1]);
-				TextBox(6,2,WIDTH-4,2,player.support(party.get(targetIndex)));
-			}else {
+				if(targetIndex>=0 && targetIndex<party.size()){
+					Adventurer target= party.get(targetIndex);
+					if(target.canSupport()){
+						TextBox(6,2,WIDTH-4,2,target.support());
+					}else{
+						TextBox(6,2,WIDTH-4,2,target.getName() +" cannot provide support.");
+					}
+					}else{
+						TextBox(6,2,WIDTH-4,2,"Invalid target.");
+					}
+				}else {
 				TextBox(6,2,WIDTH-4,2,player.support());
 			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    	}
+    	}else if (input.equalsIgnoreCase("q")|| input.equalsIgnoreCase("quit")){
+			break;
+		}else{
+		  Text.clearLine(6);
+		  Text.clearLine(7);
+		  Text.clearLine(8);
+		  TextBox(6,2,WIDTH-4,2,"Invalid input! Please Try Again.");
+		  continue;
+		}
 		whichPlayer++;
 
 		if(whichPlayer < party.size()){ 
 			//This is a player turn.
 			//Decide where to draw the following prompt:
 			// Text.go(HEIGHT - 1, 2);
-			prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit ";
+			prompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(sp)ecial/(su)pport/(q)uit ";
 			// drawText(prompt,HEIGHT-1,2);
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
@@ -444,7 +461,7 @@ public class Game{
         turn++;
         partyTurn=true;
         //display this prompt before player's turn
-        prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit ";
+        prompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(sp)ecial/(su)pport/(q)uit ";
       }
 
       //display the updated screen after input has been processed.
