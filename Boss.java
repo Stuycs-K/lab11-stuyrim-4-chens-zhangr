@@ -74,7 +74,7 @@ public class Boss extends Adventurer {
         if(getSpecial() >= 7){
           setSpecial(0);
           //todo: figure out corruption system
-          int damage = 25;
+          int damage = 18;
           other.applyDamage(damage); //once
           return this + " used Eye of Terror and dealt " + damage + " damage to "+  other + ".";
         }else{
