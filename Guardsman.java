@@ -85,7 +85,7 @@ public class Guardsman extends Adventurer{
                     return this.getName()+" tosses a grenade, dealing " + damage + " damage to " +other.getName()+".";
                 }
             }else {
-                    return this.getName()+ " doesn't have enough morale.";
+                    return this.getName()+ " doesn't have enough morale. (You need 4)";
                 }
             }else{
                 super.changeWeaponStatus(true);
@@ -94,7 +94,13 @@ public class Guardsman extends Adventurer{
     }
 
     public String specialAttack(Adventurer others){
-        return "Special attack requires a list of enemies.";
+        if (morale<4){
+            return this.getName()+ " doesn't have enough morale. (You need 4)";
+        }
+        int damage = 10;
+        setSpecial(morale-4);
+        others.applyDamage(damage);
+        return this.getName() + " tosses a grenade, dealing " +damage + " damage to " + others.getName() + ".";
     }
     
     public String support(){
