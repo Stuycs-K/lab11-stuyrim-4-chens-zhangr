@@ -58,14 +58,14 @@ public class Boss extends Adventurer {
         }
         else if (this.getWeaponStatus()){
           int damage = (int)(Math.random()*3)+ 7 + this.getDamageAffect();
-          other.applyDamage(damage);
+          other.applyDamage(damage); //once
           restoreSpecial(1);
           return this + " attacked "+ other + " and dealt "+ damage +
           " points of damage. They then charged their warp corruption by 1";
         }
         else{
           super.changeWeaponStatus(true);
-            return this + "'s weapons has been disabled for 1 round. Couldn't attack.";
+          return this + "'s weapons has been disabled for 1 round. Couldn't attack.";
         }
       }
     
@@ -74,7 +74,9 @@ public class Boss extends Adventurer {
         if(getSpecial() == 5){
           setSpecial(0);
           //todo: figure out corruption system
-          return this + "";
+          int damage = 10;
+          other.applyDamage(damage); //once
+          return this + " used Eye of Terror and dealt " + damage + " damage to " other + ".";
         }else{
           return "Not enough corruption points to use Eye of Terror. Instead "+attack(other);
         }

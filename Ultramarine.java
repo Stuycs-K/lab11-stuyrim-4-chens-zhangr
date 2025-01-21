@@ -74,7 +74,8 @@ public class Ultramarine extends Adventurer{
           if(getSpecial() == 5){
             setSpecial(0);
             for(Adventurer enemy: enemies){
-              enemy.applyDamage(5 + this.getDamageAffect() + this.getPermanentDamageAffect());
+              int totalDamage= (5 + this.getDamageAffect() + this.getPermanentDamageAffect());
+              enemy.applyDamage(totalDamage;)
               enemy.applyDamageAffect(-2);
             }
             return this + " called in a precision orbital bombardment, weakening all enemies. They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";

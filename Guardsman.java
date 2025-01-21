@@ -41,13 +41,13 @@ public class Guardsman extends Adventurer{
     public String attack(Adventurer other){
         if (this.getCorrupted()){
             int damage = (int)(Math.random()*2)+2;
-            this.applyDamage(damage);
+            this.applyDamage(damage); //self
             restoreSpecial(1);
             return this.getName()+ " fires a plasma rifle at themselves for " + damage + " damage because they were corrupted";
         }
         if (this.getWeaponStatus()){
             int damage = (int)(Math.random()*2)+1;
-            other.applyDamage(damage);
+            other.applyDamage(damage); //once
             restoreSpecial(1);
             return this.getName()+ " fires a plasma rifle at " +other.getName()+ " for " + damage + " damage.";
         }
@@ -60,17 +60,15 @@ public class Guardsman extends Adventurer{
     public String specialAttack(Adventurer other){
         if (this.getCorrupted()){
             int damage = (int)(Math.random()*2)+1;
-            this.applyDamage(damage);
+            this.applyDamage(damage); //self
             restoreSpecial(1);
             return this.getName()+ "couldn't use their special because they were corrutped. Instead, they fires a plasma rifle at themselves for " + damage + " damage.";
         }
         if (this.getWeaponStatus()){
             if (morale >= 4){
-                this.setSpecial(0);
+                setSpecial(0);
                 int damage = 10;
-                int splashDamage = 3;
-
-                other.applyDamage(damage);
+                other.applyDamage(damage); //main damage
 
                 return this.getName() + " tosses a Grenade, dealing " + damage + " damage to " + other.getName() + " and " + splashDamage + " splash damage.";
             } else {
