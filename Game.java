@@ -296,7 +296,9 @@ public class Game{
 		drawText(prompt,HEIGHT-1,2);
 		
 		input = userInput(in);
-
+		if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
+			break;
+		}
 		String[] parts = input.split(" ");
 		if (parts.length<2){
 			Text.clearLine(6);
