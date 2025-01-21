@@ -38,6 +38,9 @@ public class Guardsman extends Adventurer{
         return moraleMax;
     
     }    
+    public boolean canSupport(){
+        return getHP>0 || counter<4;
+    }
     public String attack(Adventurer other){
         // if (this.getCorrupted()){
         //     int damage = (int)(Math.random()*2)+1;
@@ -91,17 +94,17 @@ public class Guardsman extends Adventurer{
     }
     
     public String support(){
-        if (getHP() <= 0 && counter < 4){
+        if (getHP()>0){
+            return this.getName() + " is still alive, no need for reinforcements.";
+        }
+        if (counter<4){
             counter++;
             this.setHP(12);
             this.morale=0;
             return this.getName() + " is calling reinforcements! ";
-        } else if (getHP()<=0){
-            return this.getName() + " cannot call more reinforcements.";
-        } else {
-            return this.getName() + " is still alive, no need for reinforcements";
+        } 
+        return this.getName() + " cannot call more reinforcements";
         }
-    }
 
     public String support(ArrayList<Adventurer> party){
         if (getHP() <= 0 && counter < 4){

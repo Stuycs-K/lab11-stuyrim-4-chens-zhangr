@@ -24,7 +24,7 @@ public class Mechanicus extends Adventurer{
     }
 
     public String getSpecialName(){
-        return "Machine Spirit Energy";
+        return "MSE";
     }
 
     public int getSpecialMax(){

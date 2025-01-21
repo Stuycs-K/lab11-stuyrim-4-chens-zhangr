@@ -23,7 +23,7 @@ public class Ultramarine extends Adventurer{
     }
 
     public String getSpecialName(){
-        return "Command Points";
+        return "Rule";
       }
     
       public int getSpecial(){
