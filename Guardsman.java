@@ -104,6 +104,9 @@ public class Guardsman extends Adventurer{
     }
     
     public String support(){
+        if (this.getSpecial()>= this.getSpecialMax()){
+            return this.getName()+ "'s special is already at its maximum";
+        }
         if (getHP()>0){
             return this.getName() + " is still alive, no need for reinforcements.";
         }
@@ -117,6 +120,11 @@ public class Guardsman extends Adventurer{
         }
 
     public String support(ArrayList<Adventurer> party){
+        for (Adventurer ally : party) {
+        if (ally.getSpecial() >= ally.getSpecialMax()) {
+            return ally.getName() + "'s special resource is already at maximum.";
+            }
+        }
         if (getHP() <= 0 && counter < 4){
             counter++;
             this.moraleMax = 6;
@@ -135,7 +143,7 @@ public class Guardsman extends Adventurer{
 
     public String support(Adventurer other){
         other.restoreSpecial(1);
-        return this.getName() + " boosts " + other.getName() + "'s morale by 1";
+        return this.getName() + " boosts " + other.getName() + "'s special by 1";
     }
 
 // ### Death Korps Guardsman (12 HP)

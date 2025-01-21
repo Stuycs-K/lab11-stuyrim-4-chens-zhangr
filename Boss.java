@@ -16,7 +16,7 @@ public class Boss extends Adventurer {
     }
     
     public Boss(String name){
-        this(name,80);
+        this(name,100);
     }
     
     public Boss(){
@@ -74,7 +74,7 @@ public class Boss extends Adventurer {
         if(getSpecial() == 7){
           setSpecial(0);
           //todo: figure out corruption system
-          int damage = 20;
+          int damage = 25;
           other.applyDamage(damage); //once
           return this + " used Eye of Terror and dealt " + damage + " damage to "+  other + ".";
         }else{

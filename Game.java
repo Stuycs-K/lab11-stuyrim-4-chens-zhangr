@@ -266,7 +266,6 @@ public class Game{
 	
 	while(!(input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
 		//You can add parameters to draw screen!
-		drawScreen(party, enemies); 
 		//Main loop
 
 		if(party.isEmpty()){
@@ -274,7 +273,8 @@ public class Game{
 			Text.clearLine(7);
 			Text.clearLine(8);
 			TextBox(6,2,WIDTH-4,2, "All your allies have fallen! You have been defeated.");
-			break;
+			quit();
+			return;
 		}
 		
 		if(enemies.isEmpty()){
@@ -282,8 +282,11 @@ public class Game{
 			Text.clearLine(7);
 			Text.clearLine(8);
 			TextBox(6,2,WIDTH-4,2, "All your enemies have fallen! Glory to the Space King");
-			break;
+			quit();
+			return;
 		}
+
+		drawScreen(party, enemies); 
 		//Read user input		
 
   	//example debug statment
@@ -291,6 +294,12 @@ public class Game{
 
   	//display event based on last turn's input
   	if(partyTurn){
+		if (whichPlayer>= party.size()){
+			partyTurn=false;
+			whichOpponent=0;
+			prompt= "Press enter to see monster's turn.";
+			continue;
+		}
 
 		Adventurer player = party.get(whichPlayer);
 		Text.clearLine(29);
@@ -375,9 +384,7 @@ public class Game{
 				continue;
 			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    	}else if (input.equalsIgnoreCase("q")|| input.equalsIgnoreCase("quit")){
-			break;
-		}else{
+    	}else{
 		  Text.clearLine(6);
 		  Text.clearLine(7);
 		  Text.clearLine(8);
@@ -491,8 +498,10 @@ public class Game{
         whichPlayer = 0;
         partyTurn=true;
         //display this prompt before player's turn
+		if (!party.isEmpty()){
         prompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(sp)ecial/(su)pport/(q)uit ";
       }
+	 }
 
       //display the updated screen after input has been processed.
 
