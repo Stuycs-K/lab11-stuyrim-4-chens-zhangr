@@ -18,37 +18,37 @@ public class Game{
 	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     for (int i = 1; i <= 30; i++) {
         Text.go(i, 0); 
-        System.out.println("│");
+        System.out.println("║");
         Text.go(i, 80); 
-        System.out.println("│");
+        System.out.println("║");
     }
 
     for (int i = 1; i <= 80; i++) {
         Text.go(1, i); 
-        System.out.println("─");
+        System.out.println("═");
 		Text.go(5, i);
-		System.out.println("─");
+		System.out.println("═");
 		Text.go(25, i);
-		System.out.println("─");
+		System.out.println("═");
         Text.go(HEIGHT, i); 
-        System.out.println("─");
+        System.out.println("═");
     }
 	Text.go(1,1);
-	System.out.println("┌");
+	System.out.println("╔");
 	Text.go(1,80);
-	System.out.println("┐");
+	System.out.println("╗");
 	Text.go(5,1);
-	System.out.println("├");
+	System.out.println("╠");
 	Text.go(5,80);
-	System.out.println("┤");
+	System.out.println("╣");
 	Text.go(25,1);
-	System.out.println("├");
+	System.out.println("╠");
 	Text.go(25,80);
-	System.out.println("┤");
+	System.out.println("╣");
 	Text.go(30,1);
-	System.out.println("└");
+	System.out.println("╚");
 	Text.go(30,80);
-	System.out.println("┘");
+	System.out.println("╝");
   }
 
   //Display a line of text starting at
@@ -297,52 +297,62 @@ public class Game{
 		
 		input = userInput(in);
 
+		String[] parts = input.split(" ");
+		if (parts.length<2){
+			Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH -4, 2, "Invalid Input! please use 'command [index]'");
+			continue;
+		}
+		String action=parts[0];
+		int targetIndex = Integer.parseInt(parts[1]);
+
     	//Process user input for the last Adventurer:
-    	if(input.equalsIgnoreCase("attack") || input.equalsIgnoreCase("a")){
+    	if(action.equalsIgnoreCase("attack") || action.equalsIgnoreCase("a")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
+			if(targetIndex>=0&& targetIndex<enemies.size()){
 		  	Text.clearLine(6);
 			Text.clearLine(7);
 			Text.clearLine(8);
-			TextBox(6,2,WIDTH-4,2, player.attack(enemies.get(whichOpponent)));
+			TextBox(6,2,WIDTH-4,2, player.attack(enemies.get(targetIndex)));
 			removeDeadUnits(enemies);
+			}else{
+				TextBox(6,2,WIDTH-4,2, "Invalid Target.");
+				continue;
+			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
-    	else if(input.equals("special") || input.equals("sp")){
+    	else if(action.equals("special") || action.equals("sp")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
-		  Text.clearLine(6);
-		  Text.clearLine(7);
-		  Text.clearLine(8);
-
-			TextBox(6,2,WIDTH-4,2, player.specialAttack(enemies.get(whichOpponent)));
+			if(targetIndex>=0&& targetIndex<enemies.size()){
+		  	Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2, player.specialAttack(enemies.get(targetIndex)));
 			removeDeadUnits(enemies);
+			}else{
+				TextBox(6,2,WIDTH-4,2, "Invalid Target.");
+				continue;
+			}
+      	/*<<<<<<<<
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
-    	else if(input.startsWith("su ") || input.startsWith("support ")){
+    	else if(action.equals("support") || action.equals("su")){
       	//"support 0" or "su 0" or "su 2" etc.
       	//assume the value that follows su is an integer.
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
-		  Text.clearLine(6);
-		  Text.clearLine(7);
-		  Text.clearLine(8);
-
-			String[] parts = input.split(" ");
-			if(parts.length>1){
-				int targetIndex = Integer.parseInt(parts[1]);
-				if(targetIndex>=0 && targetIndex<party.size()){
-					Adventurer target= party.get(targetIndex);
-					if(target.canSupport()){
-						TextBox(6,2,WIDTH-4,2,target.support());
-					}else{
-						TextBox(6,2,WIDTH-4,2,target.getName() +" cannot provide support.");
-					}
-					}else{
-						TextBox(6,2,WIDTH-4,2,"Invalid target.");
-					}
-				}else {
-				TextBox(6,2,WIDTH-4,2,player.support());
+			if(targetIndex>=0&& targetIndex<party.size()){
+		  	Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2, player.support(party.get(targetIndex)));
+			}else{
+				TextBox(6,2,WIDTH-4,2, "Invalid Target.");
+				continue;
 			}
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}else if (input.equalsIgnoreCase("q")|| input.equalsIgnoreCase("quit")){
@@ -365,7 +375,7 @@ public class Game{
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
-			prompt = "Press enter to see monster's turn: ";
+			prompt = "Press enter to see monster's turn ";
 			// Text.go(HEIGHT - 1, 2);
 			// drawText(prompt,HEIGHT-1,2);
 			partyTurn = false;
@@ -437,7 +447,7 @@ public class Game{
 
 		
 
-		prompt = "press enter to see monster's turn: ";
+		prompt = "press enter to see monster's turn ";
 		whichOpponent++;
 
     	//enemy attacks a randomly chosen person with a randomly chosen attack.z`
