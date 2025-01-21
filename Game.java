@@ -119,13 +119,14 @@ public class Game{
 	* ***THIS ROW INTENTIONALLY LEFT BLANK***
 	*/
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
-		if(party.size()==0){
-			Text.go(startRow,2);
-			System.out.println("Dead                  ");
-			return;
+		int numSlots=4;
+		int increment =(WIDTH-2)/numSlots;
+		for(int i = 0; i<numSlots;i++){
+			for (int j = 0;j<4;j++){
+				Text.go(startRow+j,i*increment+2);
+				System.out.print(" ". repeat(increment-1));
+			}
 		}
-
-		int increment = (WIDTH - 2) / party.size();
 		for(int i = 0; i < party.size(); i ++){
 			Adventurer member = party.get(i);
 
@@ -142,6 +143,7 @@ public class Game{
 			Text.go(startRow+3,i*increment +2);
 			System.out.println("");
 		}
+		drawBackground();
 	}
 
 
@@ -251,7 +253,6 @@ public class Game{
 	boolean partyTurn = true;
 	int whichPlayer = 0;
 	int whichOpponent = 0;
-	int turn = 0;
 	String input = "";//blank to get into the main loop.
 	Scanner in = new Scanner(System.in);
 	//Draw the window border
@@ -321,6 +322,9 @@ public class Game{
 			TextBox(6,2,WIDTH-4,2, player.attack(enemies.get(targetIndex)));
 			removeDeadUnits(enemies);
 			}else{
+				Text.clearLine(6);
+		  		Text.clearLine(7);
+		 		 Text.clearLine(8);
 				TextBox(6,2,WIDTH-4,2, "Invalid Target.");
 				continue;
 			}
@@ -336,6 +340,9 @@ public class Game{
 			TextBox(6,2,WIDTH-4,2, player.specialAttack(enemies.get(targetIndex)));
 			removeDeadUnits(enemies);
 			}else{
+				Text.clearLine(6);
+		 		Text.clearLine(7);
+		 		Text.clearLine(8);
 				TextBox(6,2,WIDTH-4,2, "Invalid Target.");
 				continue;
 			}
@@ -471,7 +478,6 @@ public class Game{
         //It only triggers after the last enemy goes.
 		whichOpponent = 0;
         whichPlayer = 0;
-        turn++;
         partyTurn=true;
         //display this prompt before player's turn
         prompt = "Enter command for "+party.get(whichPlayer)+": (a)ttack/(sp)ecial/(su)pport/(q)uit ";
