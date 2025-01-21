@@ -358,15 +358,25 @@ public class Game{
 				Text.clearLine(7);
 				Text.clearLine(8);
 				int randomPerson = rand.nextInt(party.size());
-				currentEnemy.specialAttack(party.get(randomPerson));
-				TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
+				if (currentEnemy.getSpecial()>= currentEnemy.getSpecialMax()){
+					TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
+				}
+				else {
+					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " tried to use their special but lacked enough " + currentEnemy.getSpecialName()+ ".");
+				}
+				// currentEnemy.specialAttack(party.get(randomPerson));
+				// TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
 			}
 			else if (move == 2){
 				Text.clearLine(6);
 				Text.clearLine(7);
 				Text.clearLine(8);
-				currentEnemy.support();
-				TextBox(6,2,WIDTH-4,2,currentEnemy.support());
+				if (currentEnemy.getHP()>= currentEnemy.getmaxHP()||currentEnemy.getSpecial()>= currentEnemy.getSpecialMax()){
+					TextBox(6,2,WIDTH-4,2,currentEnemy.support());
+				}
+				else {
+					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " decided not to heal or boost as they are already in top condition.");
+				}
 			}
 			else if (move == 3){
 				Text.clearLine(6);
