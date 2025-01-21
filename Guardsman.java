@@ -39,7 +39,7 @@ public class Guardsman extends Adventurer{
     
     }    
     public boolean canSupport(){
-        return getHP>0 || counter<4;
+        return getHP()>0 || counter<4;
     }
     public String attack(Adventurer other){
         // if (this.getCorrupted()){
