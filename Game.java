@@ -300,19 +300,30 @@ public class Game{
 		if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")){
 			break;
 		}
-		String[] parts = input.split(" ");
+		String[] parts = input.trim().toLowerCase().split("\\s+"); 
+		// \\s+ basically splits the string into one or more parts I used it to remove any extra space 
 		if (parts.length<2){
 			Text.clearLine(6);
 			Text.clearLine(7);
 			Text.clearLine(8);
-			TextBox(6,2,WIDTH -4, 2, "Invalid Input! please use 'command [index]'");
+			TextBox(6,2,WIDTH -4, 2, "Invalid Input! Please use 'command [index]'");
 			continue;
 		}
 		String action=parts[0];
-		int targetIndex = Integer.parseInt(parts[1]);
+		int targetIndex;
+
+		try{
+			targetIndex= Integer.parseInt(parts[1]);
+		}catch (NumberFormatException e){
+			Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2,"Invalid Input! Please put a number.");
+			continue;
+		}
 
     	//Process user input for the last Adventurer:
-    	if(action.equalsIgnoreCase("attack") || action.equalsIgnoreCase("a")){
+    	if(action.equals("attack") || action.equals("a")){
       	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
       	//YOUR CODE HERE
 			if(targetIndex>=0&& targetIndex<enemies.size()){
