@@ -365,7 +365,7 @@ public class Game{
 		  continue;
 		}
 		whichPlayer++;
-
+		
 		if(whichPlayer < party.size()){ 
 			//This is a player turn.
 			//Decide where to draw the following prompt:
@@ -419,7 +419,8 @@ public class Game{
 					TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
 				}
 				else {
-					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " tried to use their special but lacked enough " + currentEnemy.getSpecialName()+ ".");
+					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " tried to use their special but lacked enough " + currentEnemy.getSpecialName()+ "so it attacked instead.");
+					TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
 				}
 				removeDeadUnits(party);
 				// currentEnemy.specialAttack(party.get(randomPerson));
@@ -433,7 +434,7 @@ public class Game{
 					TextBox(6,2,WIDTH-4,2,currentEnemy.support());
 				}
 				else {
-					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " decided not to heal or boost as they are already in top condition.");
+					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " decided not to heal or boost as they forgot they're already in top condition.");
 				}
 			}
 			else if (move == 3){
