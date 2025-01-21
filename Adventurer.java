@@ -150,4 +150,8 @@ public abstract class Adventurer{
   public void setCorrupted(boolean status){
     this.corrupted = status;
   }
+
+  public boolean canSupport(){
+    return getHP()>0;
+  }
 }
