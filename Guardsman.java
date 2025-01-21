@@ -15,7 +15,7 @@ public class Guardsman extends Adventurer{
     }
     
     public Guardsman(String name){
-        this(name,12);
+        this(name,20);
     }
     
     public Guardsman(){
@@ -112,7 +112,7 @@ public class Guardsman extends Adventurer{
         }
         if (counter<4){
             counter++;
-            this.setHP(12);
+            this.setHP(20);
             this.morale=0;
             return this.getName() + " is calling reinforcements! ";
         } 
@@ -129,7 +129,7 @@ public class Guardsman extends Adventurer{
             counter++;
             this.moraleMax = 6;
             this.morale = 0;
-            this.setHP(12);
+            this.setHP(20);
             for(Adventurer ally: party){
                 ally.restoreSpecial(1);
             }

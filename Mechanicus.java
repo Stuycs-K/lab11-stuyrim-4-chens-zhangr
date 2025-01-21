@@ -16,7 +16,7 @@ public class Mechanicus extends Adventurer{
     }
     
     public Mechanicus(String name){
-        this(name,20);
+        this(name,30);
     }
     
     public Mechanicus(){

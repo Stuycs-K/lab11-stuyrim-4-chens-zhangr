@@ -15,7 +15,7 @@ public class Ultramarine extends Adventurer{
     }
     
     public Ultramarine(String name){
-        this(name,30);
+        this(name,40);
     }
     
     public Ultramarine(){
