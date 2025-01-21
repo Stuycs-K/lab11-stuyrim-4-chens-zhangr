@@ -65,11 +65,11 @@ public class Ultramarine extends Adventurer{
       }
 
       public String specialAttack(Adventurer other, ArrayList<Adventurer> enemies){
-        if (this.getCorrupted()){
-          int damage = (int)(Math.random()*3)+ 4 + this.getDamageAffect() + this.getPermanentDamageAffect();
-          this.applyDamage(damage);
-          return this + " couldn't use their special because they were corrutped. Instead, they attacked themselves and dealt "+ damage;
-      }
+      //   if (this.getCorrupted()){
+      //     int damage = (int)(Math.random()*3)+ 4 + this.getDamageAffect() + this.getPermanentDamageAffect();
+      //     this.applyDamage(damage);
+      //     return this + " couldn't use their special because they were corrutped. Instead, they attacked themselves and dealt "+ damage;
+      // }
         if (this.getWeaponStatus()){
           if(getSpecial() == 5){
             setSpecial(0);
@@ -80,7 +80,7 @@ public class Ultramarine extends Adventurer{
             }
             return this + " called in a precision orbital bombardment, weakening all enemies. They will deal 4 less damage next round. Also, deals 5 splash damage to all enemies";
           }else{
-            return "Not enough command points to use Orbital Strike. Instead "+attack(other);
+            return "Not enough command points to use Orbital Strike (You need 5). Instead "+attack(other);
           }
         }
         else{

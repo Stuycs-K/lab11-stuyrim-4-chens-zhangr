@@ -40,12 +40,12 @@ public class Mechanicus extends Adventurer{
     }
 
     public String attack(Adventurer other){
-        if (this.getCorrupted()){
-            Random rand = new Random();
-            int damage = (int) (Math.random() * 2) + 3 + getDamageAffect() + getPermanentDamageAffect();
-            this.applyDamage(damage); //self
-            return this.getName() + " attacks themselves with Radium Barrage for " + damage + " points because they were corrupted";
-        }
+        // if (this.getCorrupted()){
+        //     Random rand = new Random();
+        //     int damage = (int) (Math.random() * 2) + 3 + getDamageAffect() + getPermanentDamageAffect();
+        //     this.applyDamage(damage); //self
+        //     return this.getName() + " attacks themselves with Radium Barrage for " + damage + " points because they were corrupted";
+        // }
         if (this.getWeaponStatus()){
             Random rand = new Random();
             int damage = rand.nextInt(2)+3 + getDamageAffect() + getPermanentDamageAffect();
@@ -60,12 +60,12 @@ public class Mechanicus extends Adventurer{
     }
 
     public String specialAttack(Adventurer other){
-        if (this.getCorrupted()){
-            Random rand = new Random();
-            int damage = rand.nextInt(2)+3 + getDamageAffect() + getPermanentDamageAffect();
-            this.applyDamage(damage);
-            return this.getName() + "couldn't use their special because they were corrutped. Instead, they attack themselves with Radium Barrage for " + damage + " points";
-        }
+        // if (this.getCorrupted()){
+        //     Random rand = new Random();
+        //     int damage = rand.nextInt(2)+3 + getDamageAffect() + getPermanentDamageAffect();
+        //     this.applyDamage(damage);
+        //     return this.getName() + "couldn't use their special because they were corrutped. Instead, they attack themselves with Radium Barrage for " + damage + " points";
+        // }
         if(this.getWeaponStatus()){
             int damage = (int) (Math.random()* 2) +3 + getDamageAffect()+ getPermanentDamageAffect();
             other.applyDamage(damage);
@@ -94,9 +94,9 @@ public class Mechanicus extends Adventurer{
     }
 
     public String support(Adventurer other){
-        if (this.getCorrupted()){
-            return this.getName() + " is corrupted, can't help their teammates";
-        }
+        // if (this.getCorrupted()){
+        //     return this.getName() + " is corrupted, can't help their teammates";
+        // }
         if (other.getPermanentDamageAffect() > 0){
             return this.getName()+" cannot update " +other.getSpecialName() + "'s weapon any further";
         }
