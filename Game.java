@@ -54,6 +54,7 @@ public class Game{
   //Display a line of text starting at
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
+
   public static void drawText(String s,int startRow, int startCol){
 	Text.go(startRow, startCol);
 	System.out.print(s);
@@ -120,12 +121,15 @@ public class Game{
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
 		int increment = (WIDTH - 2) / party.size();
 		for(int i = 0; i < party.size(); i ++){
+			Adventurer member = party.get(i);
 			Text.go(startRow, i * increment + 2);
-			System.out.print(party.get(i).getName());
+			System.out.print(member.getName());
+
 			Text.go(startRow + 1, i * increment + 2);
-			System.out.println("HP: " + party.get(i).getHP());
+			System.out.println("HP: " + colorByPercent(member.getHP(), member.getmaxHP()));
+
 			Text.go(startRow + 2, i * increment + 2);
-			System.out.println(party.get(i).getSpecialName() + ": " +  party.get(i).getSpecial());
+			System.out.println(member.getSpecialName() + ": " +  member.getSpecial());
 			System.out.println("");
 		}
 	}
@@ -134,11 +138,18 @@ public class Game{
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
 	String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
+	double percent = (double) hp / maxHP*100;
+	if (percent < 25){
+		return Text.colorize(output,Text.RED);
+	}else if (percent<75){
+		return Text.colorize(output, Text.YELLOW);
+	}else{
+		return Text.colorize(output, Text.WHITE);
+	}
 	//COLORIZE THE OUTPUT IF HIGH/LOW:
 	// under 25% : red
 	// under 75% : yellow
 	// otherwise : white
-	return output;
   }
 
 
