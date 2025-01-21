@@ -12,7 +12,7 @@ public class Boss extends Adventurer {
     }
 
     public Boss(String name, int hp){
-        this(name,hp, 5, 0);
+        this(name,hp, 10, 0);
     }
     
     public Boss(String name){
@@ -51,7 +51,7 @@ public class Boss extends Adventurer {
         if (this.getWeaponStatus() && this.getStatusImmunity()){
           int damage = (int)(Math.random()*3)+ 7;
           other.applyDamage(damage);
-          restoreSpecial(1);
+          restoreSpecial(10);
           this.setStatusImmunity(false);
           return this + " attacked "+ other + " and dealt "+ damage +
           " points of damage. They then charged their warp corruption by 1";
@@ -59,7 +59,7 @@ public class Boss extends Adventurer {
         else if (this.getWeaponStatus()){
           int damage = (int)(Math.random()*3)+ 7 + this.getDamageAffect();
           other.applyDamage(damage); //once
-          restoreSpecial(1);
+          restoreSpecial(10);
           return this + " attacked "+ other + " and dealt "+ damage +
           " points of damage. They then charged their warp corruption by 1";
         }
@@ -71,7 +71,7 @@ public class Boss extends Adventurer {
     
     
       public String specialAttack(Adventurer other){
-        if(getSpecial() == 7){
+        if(getSpecial() >= 7){
           setSpecial(0);
           //todo: figure out corruption system
           int damage = 25;

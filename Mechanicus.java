@@ -59,7 +59,7 @@ public class Mechanicus extends Adventurer{
         if(this.getWeaponStatus()){
             if(getSpecial()>=3){
                 setSpecial(getSpecial()-3);      
-                int damage = (int) (Math.random()* 2) +3 + getDamageAffect()+ getPermanentDamageAffect();
+                int damage = (int) (Math.random()* 2) +6 + getDamageAffect()+ getPermanentDamageAffect();
                 other.applyDamage(damage);
                 restoreSpecial(1);
                 return this.getName()+ " attacks " +other.getName() + " with Radium Barrage for " +damage+ " points. They have charged their machine energy by 1.";
