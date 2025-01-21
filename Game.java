@@ -119,17 +119,27 @@ public class Game{
 	* ***THIS ROW INTENTIONALLY LEFT BLANK***
 	*/
 	public static void drawParty(ArrayList<Adventurer> party,int startRow){
+		if(party.size()==0){
+			Text.go(startRow,2);
+			System.out.println("Dead ");
+			return;
+		}
+
 		int increment = (WIDTH - 2) / party.size();
 		for(int i = 0; i < party.size(); i ++){
 			Adventurer member = party.get(i);
+
 			Text.go(startRow, i * increment + 2);
 			System.out.print(member.getName());
 
 			Text.go(startRow + 1, i * increment + 2);
+			int displayHP = Math.max(0,member.getHP());
 			System.out.println("HP: " + colorByPercent(member.getHP(), member.getmaxHP()));
 
 			Text.go(startRow + 2, i * increment + 2);
 			System.out.println(member.getSpecialName() + ": " +  member.getSpecial());
+
+			Text.go(startRow+3,i*increment +2);
 			System.out.println("");
 		}
 	}
@@ -207,8 +217,11 @@ public class Game{
 	//If only 1 enemy is added it should be the boss class.
 	//start with 1 boss and modify the code to allow 2-3 adventurers later.
 	ArrayList<Adventurer>enemies = new ArrayList<>();
+	ArrayList<Adventurer>party=new ArrayList<>();
+
 	boolean isBoss = false;
 	Random rand = new Random();
+
 	int numEnemies = rand.nextInt(3) + 1;
 	if (numEnemies == 1){
 		isBoss = true;
@@ -227,7 +240,8 @@ public class Game{
 
 	//Adventurers you control:
 	//Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-	ArrayList<Adventurer> party = new ArrayList<>();
+
+	party = new ArrayList<>();
 	for (int i = 0; i < 3; i ++){
 		party.add(createRandomAdventurer());
 	}
@@ -255,7 +269,22 @@ public class Game{
 		//You can add parameters to draw screen!
 		drawScreen(party, enemies); 
 		//Main loop
-	
+
+		if(party.isEmpty()){
+			Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2, "All your allies have fallen! You have been defeated.");
+			break;
+		}
+		
+		if(enemies.isEmpty()){
+			Text.clearLine(6);
+			Text.clearLine(7);
+			Text.clearLine(8);
+			TextBox(6,2,WIDTH-4,2, "All your enemies have fallen! Glory to the Space King");
+			break;
+		}
 		//Read user input		
 
   	//example debug statment
@@ -278,6 +307,7 @@ public class Game{
 			Text.clearLine(7);
 			Text.clearLine(8);
 			TextBox(6,2,WIDTH-4,2, player.attack(enemies.get(whichOpponent)));
+			removeDeadUnits(enemies);
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.equals("special") || input.equals("sp")){
@@ -288,6 +318,7 @@ public class Game{
 		  Text.clearLine(8);
 
 			TextBox(6,2,WIDTH-4,2, player.specialAttack(enemies.get(whichOpponent)));
+			removeDeadUnits(enemies);
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
     	else if(input.startsWith("su ") || input.startsWith("support ")){
@@ -306,6 +337,7 @@ public class Game{
 			}else {
 				TextBox(6,2,WIDTH-4,2,player.support());
 			}
+			removeDeadUnits(enemies);
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
 		whichPlayer++;
@@ -351,6 +383,7 @@ public class Game{
 				Text.clearLine(8);
 				int randomPerson = rand.nextInt(party.size());
 				TextBox(6,2,WIDTH-4,2,currentEnemy.attack(party.get(randomPerson)));
+				removeDeadUnits(party);
 
 			}
 			else if (move == 1){
@@ -364,6 +397,7 @@ public class Game{
 				else {
 					TextBox(6,2,WIDTH-4,2,currentEnemy.getName()+ " tried to use their special but lacked enough " + currentEnemy.getSpecialName()+ ".");
 				}
+				removeDeadUnits(party);
 				// currentEnemy.specialAttack(party.get(randomPerson));
 				// TextBox(6,2,WIDTH-4,2,currentEnemy.specialAttack(party.get(randomPerson)));
 			}
@@ -386,6 +420,7 @@ public class Game{
 				currentEnemy.support(enemies.get(randomPerson));
 				TextBox(6,2,WIDTH-4,2,currentEnemy.support(enemies.get(randomPerson)));
 			}
+			removeDeadUnits(party);
 
 		
 
