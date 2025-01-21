@@ -240,8 +240,6 @@ public class Game{
 
 	//Adventurers you control:
 	//Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-
-	party = new ArrayList<>();
 	for (int i = 0; i < 3; i ++){
 		party.add(createRandomAdventurer());
 	}
@@ -259,7 +257,7 @@ public class Game{
 	//Draw the window border
 	String preprompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit) ";
 
-	String prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit) ";
+	String prompt = preprompt;
 	drawScreen(party, enemies);//initial state.
 	drawText(preprompt,HEIGHT-1,2);
 
@@ -337,7 +335,6 @@ public class Game{
 			}else {
 				TextBox(6,2,WIDTH-4,2,player.support());
 			}
-			removeDeadUnits(enemies);
       	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     	}
 		whichPlayer++;
@@ -345,15 +342,15 @@ public class Game{
 		if(whichPlayer < party.size()){ 
 			//This is a player turn.
 			//Decide where to draw the following prompt:
-			Text.go(HEIGHT - 1, 2);
+			// Text.go(HEIGHT - 1, 2);
 			prompt = "Enter command for "+party.get(whichPlayer)+": ((a)ttack/(sp)ecial/(su)pport/(q)uit ";
-			drawText(prompt,HEIGHT-1,2);
+			// drawText(prompt,HEIGHT-1,2);
 		  }else{
 			//This is after the player's turn, and allows the user to see the enemy turn
 			//Decide where to draw the following prompt:
 			prompt = "Press enter to see monster's turn: ";
-			Text.go(HEIGHT - 1, 2);
-			drawText(prompt,HEIGHT-1,2);
+			// Text.go(HEIGHT - 1, 2);
+			// drawText(prompt,HEIGHT-1,2);
 			partyTurn = false;
 			whichOpponent = 0;
 		}
@@ -420,7 +417,6 @@ public class Game{
 				currentEnemy.support(enemies.get(randomPerson));
 				TextBox(6,2,WIDTH-4,2,currentEnemy.support(enemies.get(randomPerson)));
 			}
-			removeDeadUnits(party);
 
 		
 
